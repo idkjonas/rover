@@ -8,9 +8,9 @@
 
 html,
 body {
-  @apply overscroll-none;
+  @apply overflow-hidden overscroll-none;
 }
 
 body {
-  @apply bg-white dark:bg-black dark:text-white text-black;
+  @apply text-black bg-white dark:bg-black dark:text-white;
 }

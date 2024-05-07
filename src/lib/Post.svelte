@@ -1,10 +1,12 @@
 <script>
   import moment from "moment";
   import { goto } from "$app/navigation";
-  import { openedPost } from "$lib/store.js";
+  import { openedPost } from "$lib/stores";
+  import { formatNumber } from "$lib/utils";
   import {
     ArrowUpOutline,
     ChatbubbleOutline,
+    HappyOutline,
     TimeOutline,
   } from "svelte-ionicons";
   import {
@@ -19,25 +21,8 @@
 
   export let post;
   export let isCommentsView = false;
-
-  moment.updateLocale("en", {
-    relativeTime: {
-      future: "in %s",
-      past: "%s",
-      s: "seconds",
-      ss: "%ss",
-      m: "a minute",
-      mm: "%dm",
-      h: "an hour",
-      hh: "%dh",
-      d: "a day",
-      dd: "%dd",
-      M: "a month",
-      MM: "%dM",
-      y: "a year",
-      yy: "%dY",
-    },
-  });
+  export let isSubredditView = false;
+  export let isProfileView = false;
 
   function handleClick() {
     openedPost.set(post);
@@ -48,12 +33,8 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick}>
-  <div
-    class:pb-4={!isCommentsView}
-    class="bg-white dark:bg-black"
-    id={post.data.id}
-  >
-    <div class:flex-col-reverse={isCommentsView} class="flex mb-4 flex-col">
+  <div class="pb-4 bg-white dark:bg-black" id={post.data.id}>
+    <div class:flex-col-reverse={isCommentsView} class="flex flex-col mb-4">
       <h3 class="px-4 mt-4">
         {post.data.title}
         {#each post.data.link_flair_richtext as flair}
@@ -81,32 +62,58 @@
       {/if}
     </div>
 
+    {#if isCommentsView && post.data.selftext}
+      <p class="px-4 pb-4">{post.data.selftext}</p>
+    {/if}
+
     <div
       class:flex={!isCommentsView}
-      class="px-4 items-center text-zinc-500 justify-between"
+      class="items-center justify-between px-4 text-zinc-500"
     >
       <div class="meta">
         <h4 class="truncate">
           {#if !isCommentsView}
-            <span class="font-medium">{post.data.subreddit}</span>
+            {#if isSubredditView}
+              <span>
+                by
+                <a href={`/u/${post.data.author}`} class="font-medium">
+                  {post.data.author}
+                </a>
+              </span>
+            {:else}
+              <a href={`/r/${post.data.subreddit}`} class="font-medium">
+                {post.data.subreddit}
+              </a>
+            {/if}
           {:else}
             <span>
               in
-              <span class="font-medium">{post.data.subreddit}</span>
+              <a href={`/r/${post.data.subreddit}`} class="font-medium">
+                {post.data.subreddit}
+              </a>
               by
-              <span class="font-medium">{post.data.author}</span>
+              <a href={`/u/${post.data.author}`} class="font-medium">
+                {post.data.author}
+              </a>
             </span>
           {/if}
         </h4>
-        <div class="flex gap-2 *:flex *:items-center *:gap-1">
+        <div class="flex gap-3 *:flex *:items-center *:gap-1">
           <div>
             <ArrowUpOutline size="18" />
-            {post.data.score}
+            {formatNumber(post.data.score)}
           </div>
-          <div>
-            <ChatbubbleOutline size="18" />
-            {post.data.num_comments}
-          </div>
+          {#if !isCommentsView}
+            <div>
+              <ChatbubbleOutline size="18" />
+              {formatNumber(post.data.num_comments)}
+            </div>
+          {:else}
+            <div>
+              <HappyOutline size="18" />
+              {post.data.upvote_ratio * 100}%
+            </div>
+          {/if}
           <div>
             <TimeOutline size="18" />
             {moment.unix(post.data.created).fromNow()}
@@ -131,26 +138,26 @@
         </div>
       {/if}
     </div>
-    {#if isCommentsView}
-      <div
-        class="border-y text-blue-500 mt-4 py-3 flex justify-between px-6 border-zinc-200 dark:border-zinc-800"
-      >
-        <button>
-          <Icon src={ArrowUp} class="size-6" />
-        </button>
-        <button>
-          <Icon src={ArrowDown} class="size-6" />
-        </button>
-        <button>
-          <Icon src={Bookmark} class="size-6" />
-        </button>
-        <button>
-          <Icon src={ChatBubbleOvalLeft} class="size-6" />
-        </button>
-        <button>
-          <Icon src={ArrowUpOnSquare} class="size-6" />
-        </button>
-      </div>
-    {/if}
   </div>
 </div>
+{#if isCommentsView}
+  <div
+    class="sticky flex justify-between px-6 py-3 text-blue-500 bg-white -bottom-px -top-px dark:bg-black border-y border-zinc-200 dark:border-zinc-800"
+  >
+    <button>
+      <Icon src={ArrowUp} class="size-6" />
+    </button>
+    <button>
+      <Icon src={ArrowDown} class="size-6" />
+    </button>
+    <button>
+      <Icon src={Bookmark} class="size-6" />
+    </button>
+    <button>
+      <Icon src={ChatBubbleOvalLeft} class="size-6" />
+    </button>
+    <button>
+      <Icon src={ArrowUpOnSquare} class="size-6" />
+    </button>
+  </div>
+{/if}

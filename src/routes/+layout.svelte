@@ -13,24 +13,27 @@
     relativeTime: {
       future: "in %s",
       past: "%s",
-      s: "seconds",
+      s: "now",
       ss: "%ss",
-      m: "a minute",
+      m: "1m",
       mm: "%dm",
-      h: "an hour",
+      h: "1h",
       hh: "%dh",
-      d: "a day",
+      d: "1d",
       dd: "%dd",
-      M: "a month",
-      MM: "%dM",
-      y: "a year",
-      yy: "%dY",
+      M: "1mo",
+      MM: "%dmo",
+      y: "1y",
+      yy: "%dy",
     },
   });
 </script>
 
-<div class="max-w-xl mx-auto dark:bg-zinc-900 bg-zinc-100">
-  <div class="grid grid-rows-[44px,1fr,50px] h-dvh">
+<div id="rover" class="max-w-xl mx-auto dark:bg-zinc-900 bg-zinc-100">
+  <div
+    id="grid-wrapper"
+    class="grid grid-rows-[44px,1fr,50px] standalone:grid-rows-[44px,1fr,84px] h-dvh"
+  >
     <Navbar />
     {#key $page.url.pathname}
       <main class="overflow-y-scroll overlow-x-hidden" in:fly={{ y: 10 }}>

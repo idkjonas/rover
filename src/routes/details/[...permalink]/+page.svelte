@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { openedPost } from "$lib/store.js";
+  import { openedPost } from "$lib/stores";
 
   import Post from "$lib/Post.svelte";
   import Comment from "$lib/Comment.svelte";
@@ -27,7 +27,6 @@
   $: if (redditData) {
     post = redditData[0].data.children[0];
     comments = redditData[1].data.children;
-    console.log(comments);
   }
 </script>
 
