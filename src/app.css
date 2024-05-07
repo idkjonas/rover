@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply touch-manipulation;
+}
+
+html,
+body {
+  @apply overscroll-none;
+}
+
+body {
+  @apply bg-white dark:bg-black dark:text-white text-black;
+}
