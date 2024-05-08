@@ -2,8 +2,8 @@
   import Spinner from "$lib/Spinner.svelte";
   import Post from "$lib/Post.svelte";
   import Comment from "$lib/Comment.svelte";
-  import { onMount } from "svelte";
-  import { hasScrolledToBottom } from "$lib/stores";
+  import { onDestroy, onMount } from "svelte";
+  import { hasScrolledToBottom, scrollPosition } from "$lib/stores";
 
   const POST_LIMIT = 8;
 
@@ -47,9 +47,23 @@
   }
 
   $: if ($hasScrolledToBottom === true) loadMore();
+
+  let main;
+
+  $: if (list.length > 0) {
+    main = document.getElementsByTagName("main")[0];
+    setTimeout(() => {
+      main.scrollTop = $scrollPosition;
+    });
+  }
+
+  onDestroy(() => {
+    scrollPosition.set(main.scrollTop);
+  });
 </script>
 
 {#if list.length > 0}
+  <button on:click={() => (main.scrollTop = 499)}>dajisndjsa</button>
   <div class="grid grid-cols-1 gap-2">
     {#each list as item}
       {#key item.data.id}

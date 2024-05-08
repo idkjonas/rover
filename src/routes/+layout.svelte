@@ -1,7 +1,5 @@
 <script>
-  import { page } from "$app/stores";
-  import { hasScrolledToBottom, cachedNavigation } from "$lib/stores";
-
+  import { hasScrolledToBottom } from "$lib/stores";
   import moment from "moment";
   import TabBar from "./TabBar.svelte";
   import "../colors.css";
