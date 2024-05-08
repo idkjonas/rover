@@ -93,7 +93,7 @@
           class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-zinc-100 dark:bg-zinc-900"
         >
           <img
-            src="https://i.redd.it/{image.media_id}.jpeg"
+            src="https://i.redd.it/{image.media_id}.jpg"
             loading="lazy"
             alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
             class="object-contain max-h-[24rem] object-center"
