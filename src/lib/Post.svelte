@@ -30,19 +30,15 @@
   let startPosition = 0;
 
   const dragX = spring(0);
-
-  function handleTap() {
-    console.log("hello");
-  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="overflow-hidden">
   <div
-    use:pan={{ delay: 100 }}
+    use:pan={{ delay: 300 }}
     on:pan={(e) =>
-      viewType !== "details" && dragX.set((e.detail.x - startPosition) / 1.25)}
+      viewType !== "details" && dragX.set(e.detail.x - startPosition)}
     on:pandown={(e) => (startPosition = e.detail.event.layerX)}
     on:panup={() => dragX.set(0)}
     use:tap
