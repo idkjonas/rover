@@ -44,7 +44,7 @@
     use:tap
     on:tap={() =>
       viewType !== "details"
-        ? goto(post.data.permalink, { replaceState: false })
+        ? goto(post.data.permalink, { replaceState: false, noScroll; true })
         : ""}
     target="_blank"
     style="transform: translateX({$dragX}px)"
