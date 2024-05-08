@@ -1,5 +1,5 @@
 <script>
-  import Spinner from "$lib/spinner.svelte";
+  import Spinner from "$lib/Spinner.svelte";
   import Post from "$lib/Post.svelte";
   import Comment from "$lib/Comment.svelte";
   import { onMount } from "svelte";
