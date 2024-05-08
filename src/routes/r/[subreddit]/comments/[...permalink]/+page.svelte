@@ -30,15 +30,6 @@
   }
 </script>
 
-<!-- 
-{#if $openedPost}
-  <Post post={$openedPost} viewType="details" />
-{:else if !redditData}
-  <Spinner />
-{:else}
-  <Post {post} viewType="details" />
-{/if} -->
-
 {#if !redditData}
   <Spinner />
 {:else}
