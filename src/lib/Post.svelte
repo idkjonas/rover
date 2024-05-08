@@ -98,6 +98,25 @@
         >
           <track kind="captions" />
         </video>
+    </div>
+  {:else if post.data.is_gallery}
+    <div
+      class="flex gap-4 col-[full] px-4 overflow-x-scroll snap-x bg-white snap-mandatory dark:bg-black"
+    >
+      {#each post.data.gallery_data.items as image}
+        <div
+          class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-zinc-100 dark:bg-zinc-900"
+        >
+          <img
+            src="https://i.redd.it/{image.media_id}.jpg"
+            loading="lazy"
+            alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
+            class="object-contain max-h-[24rem] object-center"
+          />
+        </div>
+      {/each}
+    </div>
+  {/if}
       </div>
     {:else if post.data.is_gallery}
       <div
