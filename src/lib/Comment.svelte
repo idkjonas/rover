@@ -56,9 +56,9 @@
           class="flex items-center justify-between overflow-hidden text-[var(--gray-1)] grow"
         >
           <div class="flex items-center w-full gap-2">
-            <div class="flex items-center">
+            <div class="flex items-center gap-2">
               <div class="flex items-center">
-                <ArrowUpOutline size="18" />
+                <ArrowUpOutline size="14" />
                 {#if !comment.data.score_hidden}
                   {formatNumber(comment.data.score)}
                 {:else}
@@ -66,7 +66,7 @@
                 {/if}
               </div>
               {#if comment.data.locked}
-                <LockClosed size="18" class="text-[var(--green)]" />
+                <LockClosed size="14" class="text-[var(--green)]" />
               {/if}
             </div>
 
