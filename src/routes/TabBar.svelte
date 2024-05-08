@@ -7,7 +7,7 @@
   class="bg-white border-t md:border-r md:border-t-0 size-full dark:bg-black border-[var(--gray-5)]"
 >
   <div
-    class="h-[50px] standalone:pb-[34px] w-full text-zinc-500 flex [&>.active]:text-blue-500 *:w-full font-medium *:text-xs *:flex *:flex-col *:items-center *:justify-center items-center justify-between justify"
+    class="h-[50px] md:flex-col md:p-2 md:*:p-2 gap-y-2 *:rounded-md fine:[&>*:hover]:bg-[var(--gray-6)] [&>*:active]:scale-90 *:transition-transform standalone:pb-[34px] w-full text-[var(--gray-1)] flex [&>.active]:text-[var(--blue)] *:w-full *:text-[11px] *:flex *:flex-col *:items-center *:justify-center items-center justify-between"
   >
     <a href="/posts" class:active={$page.url.pathname === "/posts"}>
       <Home size="26" />
