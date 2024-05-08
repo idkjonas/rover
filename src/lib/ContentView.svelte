@@ -63,7 +63,6 @@
 </script>
 
 {#if list.length > 0}
-  <button on:click={() => (main.scrollTop = 499)}>dajisndjsa</button>
   <div class="grid grid-cols-1 gap-2">
     {#each list as item}
       {#key item.data.id}
