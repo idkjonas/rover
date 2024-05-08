@@ -1,10 +1,11 @@
 <script>
-  import SvelteMarkdown from "svelte-markdown";
-  import { ArrowUpOutline } from "svelte-ionicons";
+  import MarkdownView from "$lib/MarkdownView.svelte";
+  import { ArrowUpOutline, LockClosed } from "svelte-ionicons";
   import moment from "moment";
   import { slide } from "svelte/transition";
   import { formatNumber } from "$lib/utils";
   import { goto } from "$app/navigation";
+  import Flair from "./Flair.svelte";
 
   export let comment;
   export let viewType = undefined;
@@ -22,22 +23,23 @@
       isCollapsed = !isCollapsed;
     }
   }
-
-  console.log(comment.data.permalink);
-  console.log(viewType);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if comment.data.body}
-  <div class="pl-2 bg-white dark:bg-black" on:click={handleClick}>
+  <div
+    class:pl-2={comment.data.depth > 0}
+    class="grid grid-cols-1 text-sm bg-white dark:bg-black"
+    on:click={handleClick}
+  >
     <div
-      class:border-b={isCollapsed}
       class:!border-none={viewType === "profile"}
-      class="border-zinc-200 transition-[padding] dark:border-zinc-800"
+      class="border-[var(--gray-5)] transition-[padding"
       class:pb-2={isCollapsed}
+      class:border-t={viewType !== "profile"}
     >
-      <div class="flex items-center pt-3 pb-1 pl-2 pr-3" on:click={collapse}>
+      <div class="flex items-center pt-3 pb-1 pl-4 pr-4" on:click={collapse}>
         {#if comment.data.depth > 0}
           <div class="absolute left-0 w-3 h-full"></div>
         {/if}
@@ -50,25 +52,38 @@
           {comment.data.author}
         </h4>
 
-        <div class="flex justify-between text-zinc-500 grow">
-          <div class="flex items-center">
-            <ArrowUpOutline size="18" />
-            {formatNumber(comment.data.score)}
-          </div>
-          <div class="flex items-center">
-            {moment.unix(comment.data.created).fromNow()}
+        <div
+          class="flex items-center justify-between overflow-hidden text-[var(--gray-1)] grow"
+        >
+          <div class="flex items-center w-full gap-2">
+            <div class="flex items-center">
+              <div class="flex items-center">
+                <ArrowUpOutline size="18" />
+                {#if !comment.data.score_hidden}
+                  {formatNumber(comment.data.score)}
+                {:else}
+                  -
+                {/if}
+              </div>
+              {#if comment.data.locked}
+                <LockClosed size="18" class="text-[var(--green)]" />
+              {/if}
+            </div>
+
+            {#if comment.data.author_flair_text}
+              <Flair>{comment.data.author_flair_text}</Flair>
+            {/if}
+            <div class="flex items-center self-end justify-end grow">
+              {moment.unix(comment.data.created).fromNow()}
+            </div>
           </div>
         </div>
       </div>
       {#if !isCollapsed}
         <div transition:slide>
-          <div
-            class="border-zinc-200 dark:border-zinc-800"
-            class:border-b={viewType !== "profile"}
-            on:click={collapse}
-          >
-            <p class="pb-3 pl-2 pr-4 break-words pl-">
-              <SvelteMarkdown source={comment.data.body} />
+          <div class="border-[var(--gray-5)]" on:click={collapse}>
+            <p class="pb-3 pl-4 pr-4 break-words pl-">
+              <MarkdownView source={comment.data.body} />
             </p>
           </div>
           {#if comment.data.replies}

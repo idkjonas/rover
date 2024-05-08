@@ -4,6 +4,7 @@
 
   import moment from "moment";
   import TabBar from "./TabBar.svelte";
+  import "../colors.css";
   import "../app.css";
   import { fly } from "svelte/transition";
 
@@ -39,26 +40,23 @@
       }
     });
   }
-
-  $: console.log($cachedNavigation);
 </script>
 
-<div id="rover" class="max-w-xl mx-auto dark:bg-zinc-900 bg-zinc-100">
-  <div id="grid" class="grid-rows-[min-content,1fr,min-content] grid h-dvh">
-    <div
-      class="h-[44px] flex items-center justify-center px-4 bg-white border-b g size-full dark:bg-black dark:border-zinc-800 border-zinc-200"
-    >
-      <h1>Rover</h1>
-    </div>
-    {#key $page.url.pathname}
-      <main
-        use:handleScroll
-        class="overflow-y-scroll isolate overlow-x-hidden"
-        in:fly={{ y: 10 }}
+<div id="rover" class="max-w-3xl mx-auto bg-[var(--gray-6)]">
+  <div
+    class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] grid h-dvh"
+  >
+    <div class="grid md:order-1 grid-rows-[min-content,1fr] overflow-hidden">
+      <div
+        class="h-[44px] flex items-center justify-center px-4 bg-white border-b g size-full dark:bg-black border-[var(--gray-5)]"
       >
+        <h1>Rover</h1>
+      </div>
+      <main use:handleScroll class="overflow-y-scroll isolate overlow-x-hidden">
         <slot />
       </main>
-    {/key}
+    </div>
+
     <TabBar />
   </div>
 </div>

@@ -46,8 +46,6 @@
     lastChildId = list[list.length - 1].data.id;
   }
 
-  $: console.log(list[0]);
-
   $: if ($hasScrolledToBottom === true) loadMore();
 </script>
 

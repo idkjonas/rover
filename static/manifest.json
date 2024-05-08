@@ -1,5 +1,6 @@
 {
   "display": "standalone",
   "scope": "/",
-  "start_url": "/posts"
+  "start_url": "/posts",
+  "background_color": "black"
 }

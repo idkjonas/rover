@@ -28,8 +28,6 @@
     post = redditData[0].data.children[0];
     comments = redditData[1].data.children;
   }
-
-  $: console.log(post);
 </script>
 
 <!-- 
@@ -45,11 +43,6 @@
   <Spinner />
 {:else}
   <Post {post} viewType="details" />
-{/if}
-
-{#if !redditData}
-  <Spinner />
-{:else}
   {#each comments as comment}
     <Comment {comment} />
   {/each}
