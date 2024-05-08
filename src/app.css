@@ -12,5 +12,5 @@ body {
 }
 
 body {
-  @apply text-black bg-white dark:bg-black dark:text-white;
+  @apply bg-white text-black dark:bg-black dark:text-white;
 }

@@ -7,7 +7,7 @@
   class="bg-white border-t size-full dark:bg-black border-zinc-200 dark:border-zinc-800"
 >
   <div
-    class="h-[50px] w-full text-zinc-500 flex [&>.active]:text-blue-500 *:w-full font-medium *:text-xs *:flex *:flex-col *:items-center *:justify-center items-center justify-between justify"
+    class="h-[50px] standalone:pb-[34px] w-full text-zinc-500 flex [&>.active]:text-blue-500 *:w-full font-medium *:text-xs *:flex *:flex-col *:items-center *:justify-center items-center justify-between justify"
   >
     <a href="/posts" class:active={$page.url.pathname === "/posts"}>
       <Home size="26" />

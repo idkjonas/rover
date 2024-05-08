@@ -1,7 +1,9 @@
 <script>
+  import SvelteMarkdown from "svelte-markdown";
+
   import moment from "moment";
   import { goto } from "$app/navigation";
-  import { openedPost } from "$lib/stores";
+  // import { openedPost } from "$lib/stores";
   import { formatNumber } from "$lib/utils";
   import {
     ArrowUpOutline,
@@ -20,129 +22,170 @@
   } from "svelte-hero-icons";
 
   export let post;
-  export let isCommentsView = false;
-  export let isSubredditView = false;
-  export let isProfileView = false;
+  export let viewType = undefined;
 
   function handleClick() {
-    openedPost.set(post);
-    goto(`/details${post.data.permalink}`);
+    // openedPost.set(post);
   }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:click={handleClick}>
-  <div class="pb-4 bg-white dark:bg-black" id={post.data.id}>
-    <div class:flex-col-reverse={isCommentsView} class="flex flex-col mb-4">
-      <h3 class="px-4 mt-4">
-        {post.data.title}
-        {#each post.data.link_flair_richtext as flair}
-          <span
-            class="bg-zinc-100 dark:bg-zinc-900 px-2 py-0.5 rounded-md text-zinc-500"
-            >{flair.t}</span
-          >{" "}
-        {/each}
-      </h3>
-      {#if post.data.post_hint === "image" || post.data.is_video}
-        <div class:mt-4={!isCommentsView} class="bg-zinc-100 dark:bg-zinc-900">
-          {#if post.data.post_hint === "image"}
-            <img
-              src={post.data.url}
-              alt=""
-              class="object-contain max-h-[24rem] object-center mx-auto"
-            />
-          {:else if post.data.is_video}
-            <!-- prettier-ignore -->
-            <video class="object-contain max-h-[24rem] object-center mx-auto" controls playsinline src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback">
-            <track kind="captions" />
-          </video>
-          {/if}
-        </div>
+
+<a
+  href={post.data.permalink}
+  target="_blank"
+  id={post.data.id}
+  rover-post
+  class="grid py-4 bg-white gap-y-4 dark:bg-black"
+  on:click={handleClick}
+>
+  <div class="col-[normal]">
+    <h3 class="text-lg font-[450]" class:!text-xl={viewType === "details"}>
+      {post.data.title}
+
+      {#if post.data.link_flair_text}
+        <span
+          class="bg-zinc-100 text-base font-normal dark:bg-zinc-900 px-2 py-0.5 rounded-md text-zinc-500"
+          >{post.data.link_flair_text}</span
+        >{" "}
       {/if}
-    </div>
-
-    {#if isCommentsView && post.data.selftext}
-      <p class="px-4 pb-4">{post.data.selftext}</p>
+    </h3>
+    {#if viewType === "details"}
+      <h4 class="font-[450] text-zinc-500">
+        {post.data.num_comments} Comments
+      </h4>
     {/if}
+  </div>
 
+  {#if post.data.post_hint === "image"}
     <div
-      class:flex={!isCommentsView}
-      class="items-center justify-between px-4 text-zinc-500"
+      class="col-[normal] overflow-clip rounded-xl bg-zinc-100 dark:bg-zinc-900"
     >
-      <div class="meta">
-        <h4 class="truncate">
-          {#if !isCommentsView}
-            {#if isSubredditView}
-              <span>
-                by
-                <a href={`/u/${post.data.author}`} class="font-medium">
-                  {post.data.author}
-                </a>
-              </span>
-            {:else}
-              <a href={`/r/${post.data.subreddit}`} class="font-medium">
-                {post.data.subreddit}
-              </a>
-            {/if}
-          {:else}
+      <img
+        loading="lazy"
+        src={post.data.url}
+        alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
+        class="object-contain bg-contain bg-center bg-no-repeat rounded-xl col-[normal] w-full max-h-[24rem] object-center mx-auto"
+      />
+    </div>
+  {:else if post.data.is_video}
+    <div
+      class="col-[normal] rounded-xl overflow-clip bg-zinc-100 dark:bg-zinc-900"
+    >
+      <!-- prettier-ignore -->
+
+      <video
+          class="object-contain col-[normal] snap-x w-full max-h-[24rem] object-center mx-auto"
+          controls
+          playsinline
+          src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
+>
+          <track kind="captions" />
+        </video>
+    </div>
+  {:else if post.data.is_gallery}
+    <div
+      class="flex gap-4 col-[full] px-4 overflow-x-scroll snap-x bg-white snap-mandatory dark:bg-black"
+    >
+      {#each post.data.gallery_data.items as image}
+        <div
+          class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-zinc-100 dark:bg-zinc-900"
+        >
+          <img
+            src="https://i.redd.it/{image.media_id}.jpeg"
+            loading="lazy"
+            alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
+            class="object-contain max-h-[24rem] object-center"
+          />
+        </div>
+      {/each}
+    </div>
+  {/if}
+
+  {#if post.data.selftext}
+    <p class="col-[normal]" class:line-clamp-3={viewType !== "details"}>
+      <SvelteMarkdown source={post.data.selftext} />
+    </p>
+  {/if}
+
+  <div
+    class:flex={viewType !== "details"}
+    class="items-center col-[normal] justify-between text-zinc-500"
+  >
+    <div class="meta">
+      <h4 class="truncate">
+        {#if viewType !== "details"}
+          {#if viewType === "subreddit"}
             <span>
-              in
-              <a href={`/r/${post.data.subreddit}`} class="font-medium">
-                {post.data.subreddit}
-              </a>
               by
               <a href={`/u/${post.data.author}`} class="font-medium">
                 {post.data.author}
               </a>
             </span>
-          {/if}
-        </h4>
-        <div class="flex gap-3 *:flex *:items-center *:gap-1">
-          <div>
-            <ArrowUpOutline size="18" />
-            {formatNumber(post.data.score)}
-          </div>
-          {#if !isCommentsView}
-            <div>
-              <ChatbubbleOutline size="18" />
-              {formatNumber(post.data.num_comments)}
-            </div>
           {:else}
-            <div>
-              <HappyOutline size="18" />
-              {post.data.upvote_ratio * 100}%
-            </div>
+            <a href={`/r/${post.data.subreddit}`} class="font-medium">
+              {post.data.subreddit}
+            </a>
           {/if}
+        {:else}
+          <span>
+            in
+            <a href={`/r/${post.data.subreddit}`} class="font-medium">
+              {post.data.subreddit}
+            </a>
+            by
+            <a href={`/u/${post.data.author}`} class="font-medium">
+              {post.data.author}
+            </a>
+          </span>
+        {/if}
+      </h4>
+      <div class="flex gap-3 *:flex *:items-center *:gap-1">
+        <div>
+          <ArrowUpOutline size="18" />
+          {formatNumber(post.data.score)}
+        </div>
+        {#if viewType !== "details"}
           <div>
-            <TimeOutline size="18" />
-            {moment.unix(post.data.created).fromNow()}
+            <ChatbubbleOutline size="18" />
+            {formatNumber(post.data.num_comments)}
           </div>
+        {:else}
+          <div>
+            <HappyOutline size="18" />
+            {post.data.upvote_ratio * 100}%
+          </div>
+        {/if}
+        <div>
+          <TimeOutline size="18" />
+          {moment.unix(post.data.created).fromNow()}
         </div>
       </div>
-
-      {#if !isCommentsView}
-        <div
-          class="actions *:size-9 flex gap-1 *:rounded-md *:flex *:items-center *:justify-center"
-        >
-          <button>
-            <Icon src={EllipsisHorizontal} class="size-8" />
-          </button>
-
-          <button>
-            <Icon src={ArrowUp} class="size-6" />
-          </button>
-          <button>
-            <Icon src={ArrowDown} class="size-6" />
-          </button>
-        </div>
-      {/if}
     </div>
+
+    {#if viewType !== "details"}
+      <div
+        class="actions *:size-9 flex gap-1 *:rounded-md *:flex *:items-center *:justify-center"
+      >
+        <button>
+          <Icon src={EllipsisHorizontal} class="size-8" />
+        </button>
+
+        <button>
+          <Icon src={ArrowUp} class="size-6" />
+        </button>
+        <button>
+          <Icon src={ArrowDown} class="size-6" />
+        </button>
+      </div>
+    {/if}
   </div>
-</div>
-{#if isCommentsView}
+</a>
+
+{#if viewType === "details"}
   <div
-    class="sticky flex justify-between px-6 py-3 text-blue-500 bg-white -bottom-px -top-px dark:bg-black border-y border-zinc-200 dark:border-zinc-800"
+    class="sticky flex justify-between h-[50px] px-8 text-blue-500 bg-white -bottom-px -top-px dark:bg-black border-y border-zinc-200 dark:border-zinc-800"
   >
     <button>
       <Icon src={ArrowUp} class="size-6" />
@@ -161,3 +204,9 @@
     </button>
   </div>
 {/if}
+
+<style>
+  [rover-post] {
+    grid-template-columns: [full-start] 1rem [normal-start] 1fr [normal-end] 1rem [full-end];
+  }
+</style>
