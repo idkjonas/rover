@@ -45,11 +45,6 @@
   <Spinner />
 {:else}
   <Post {post} viewType="details" />
-{/if}
-
-{#if !redditData}
-  <Spinner />
-{:else}
   {#each comments as comment}
     <Comment {comment} />
   {/each}
