@@ -47,7 +47,7 @@
         ? goto(post.data.permalink, { replaceState: false, noScroll: true })
         : ""}
     target="_blank"
-    style="transform: translateX({$dragX}px)"
+    style="transform: transform3d({$dragX}px, 0, 0)"
     id={post.data.id}
     rover-post
     class="grid py-4 border-[var(--gray-5)] bg-white gap-y-4 dark:bg-black"
