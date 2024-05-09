@@ -36,7 +36,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="overflow-hidden">
   <div
-    use:pan={{ delay: 300 }}
+    use:pan={{ delay: 200 }}
     on:pan={(e) =>
       viewType !== "details" && dragX.set(e.detail.x - startPosition)}
     on:pandown={(e) => (startPosition = e.detail.event.layerX)}
