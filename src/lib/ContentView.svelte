@@ -48,18 +48,6 @@
 
   $: if ($hasScrolledToBottom === true) loadMore();
 
-  let main;
-
-  $: if (list.length > 0) {
-    main = document.getElementsByTagName("main")[0];
-    setTimeout(() => {
-      main.scrollTop = $scrollPosition;
-    });
-  }
-
-  onDestroy(() => {
-    scrollPosition.set(main.scrollTop);
-  });
 </script>
 
 {#if list.length > 0}
