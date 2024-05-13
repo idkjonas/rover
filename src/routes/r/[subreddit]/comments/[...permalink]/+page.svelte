@@ -1,9 +1,8 @@
 <script>
   import { page } from "$app/stores";
-  // import { openedPost } from "$lib/stores";
 
   import Post from "$lib/Post.svelte";
-  import Comment from "$lib/Comment.svelte";
+  import Comment from "$lib/comment/Comment.svelte";
 
   import Spinner from "$lib/Spinner.svelte";
 
@@ -38,3 +37,5 @@
     <Comment {comment} />
   {/each}
 {/if}
+
+<button></button>

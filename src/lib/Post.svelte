@@ -1,7 +1,8 @@
 <script>
-  import { pan, tap } from "svelte-gestures";
+  import { tap } from "svelte-gestures";
   import MarkdownView from "$lib/MarkdownView.svelte";
   import Flair from "$lib/Flair.svelte";
+  import GestureView from "$lib/GestureView.svelte";
 
   import moment from "moment";
   import { goto } from "$app/navigation";
@@ -22,37 +23,23 @@
     ChatBubbleOvalLeft,
     ArrowUpOnSquare,
   } from "svelte-hero-icons";
-  import { spring } from "svelte/motion";
 
   export let post;
   export let viewType = undefined;
-
-  let startPosition = 0;
-
-  const dragX = spring(0);
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="overflow-hidden">
-  <div
-    use:pan={{ delay: 200 }}
-    on:pan={(e) =>
-      viewType !== "details" && dragX.set(e.detail.x - startPosition)}
-    on:pandown={(e) => (startPosition = e.detail.event.layerX)}
-    on:panup={() => dragX.set(0)}
+<GestureView enableGestures={viewType !== "details"}>
+  <rover-post
     use:tap
     on:tap={() =>
       viewType !== "details"
         ? goto(post.data.permalink, { replaceState: false, noScroll: true })
         : ""}
     target="_blank"
-    style="transform: perspective(500px) translate3d({$dragX}px, 0, 0px)"
     id={post.data.id}
     rover-post
-    class="grid py-4 border-[var(--gray-5)] bg-white gap-y-4 dark:bg-black"
+    class="grid py-4 border-[var(--gray-5)] bg-[var(--base)] gap-y-4"
   >
-    <!-- style="transform: translateX(calc({x}px - 50%))" -->
     <div class="col-[normal]">
       <h3
         class:!text-lg={viewType === "details"}
@@ -65,7 +52,7 @@
         {/if}
       </h3>
       {#if viewType === "details"}
-        <h4 class="font-medium text-[var(--gray-1)]">
+        <h4 class="text-[var(--gray-1)]">
           {post.data.num_comments} Comments
         </h4>
       {/if}
@@ -85,23 +72,23 @@
       <div class="col-[full] overflow-clip bg-[var(--gray-6)]">
         <!-- prettier-ignore -->
         <video
-          loading="lazy"
-          class:max-h-[20rem]={viewType === "details"}
-          class="object-contain snap-x w-full max-h-[38rem] object-center mx-auto"
-          controls
-          playsinline
-          src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
-        >
-          <track kind="captions" />
-        </video>
+            loading="lazy"
+            class:max-h-[20rem]={viewType === "details"}
+            class="object-contain snap-x w-full max-h-[38rem] object-center mx-auto"
+            controls
+            playsinline
+            src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
+          >
+            <track kind="captions" />
+          </video>
       </div>
     {:else if post.data.is_gallery}
       <div
-        class="flex gap-4 col-[full] px-4 overflow-x-scroll snap-x bg-white snap-mandatory dark:bg-black"
+        class="flex gap-4 col-[full] px-4 overflow-x-scroll snap-x bg-[var(--base)] snap-mandatory"
       >
         {#each post.data.gallery_data.items as image}
           <div
-            class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-zinc-100 dark:bg-zinc-900"
+            class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-[var(--gray-6)]"
           >
             <img
               src="https://i.redd.it/{image.media_id}.jpg"
@@ -116,7 +103,7 @@
 
     {#if post.data.selftext}
       <p
-        class="col-[normal] text-sm"
+        class="col-[normal] text-[15px]"
         class:text-[var(--gray-1)]={viewType !== "details"}
         class:line-clamp-3={viewType !== "details"}
       >
@@ -128,7 +115,7 @@
       class:flex={viewType !== "details"}
       class="items-center col-[normal] justify-between text-[var(--gray-1)]"
     >
-      <div class="text-sm meta">
+      <div class="text-[15px] meta">
         <h4 class="flex gap-2 truncate">
           {#if post.data.stickied}
             <Megaphone size="20" class="text-[var(--green)]" />
@@ -225,8 +212,8 @@
         </button>
       </div>
     {/if}
-  </div>
-</div>
+  </rover-post>
+</GestureView>
 
 <style>
   [rover-post] {

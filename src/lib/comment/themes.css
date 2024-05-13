@@ -1,0 +1,39 @@
+:root {
+  --light-rainbow-depth-1: #f34336;
+  --light-rainbow-depth-2: #ff912f;
+  --light-rainbow-depth-3: #fad141;
+  --light-rainbow-depth-4: #2d714c;
+  --light-rainbow-depth-5: #0d74db;
+  --light-rainbow-depth-6: #234688;
+  --light-rainbow-depth-7: #643c95;
+
+  --dark-rainbow-depth-1: #af2e28;
+  --dark-rainbow-depth-2: #b15610;
+  --dark-rainbow-depth-3: #967727;
+  --dark-rainbow-depth-4: #2d714c;
+  --dark-rainbow-depth-5: #1f67b1;
+  --dark-rainbow-depth-6: #234688;
+  --dark-rainbow-depth-7: #643c95;
+}
+
+:root {
+  --rainbow-depth-1: var(--light-rainbow-depth-1);
+  --rainbow-depth-2: var(--light-rainbow-depth-2);
+  --rainbow-depth-3: var(--light-rainbow-depth-3);
+  --rainbow-depth-4: var(--light-rainbow-depth-4);
+  --rainbow-depth-5: var(--light-rainbow-depth-5);
+  --rainbow-depth-6: var(--light-rainbow-depth-6);
+  --rainbow-depth-7: var(--light-rainbow-depth-7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rainbow-depth-1: var(--dark-rainbow-depth-1);
+    --rainbow-depth-2: var(--dark-rainbow-depth-2);
+    --rainbow-depth-3: var(--dark-rainbow-depth-3);
+    --rainbow-depth-4: var(--dark-rainbow-depth-4);
+    --rainbow-depth-5: var(--dark-rainbow-depth-5);
+    --rainbow-depth-6: var(--dark-rainbow-depth-6);
+    --rainbow-depth-7: var(--dark-rainbow-depth-7);
+  }
+}

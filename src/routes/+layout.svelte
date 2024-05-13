@@ -40,21 +40,21 @@
   }
 </script>
 
-<div id="rover" class="max-w-3xl mx-auto bg-[var(--gray-6)]">
-  <div
-    class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] grid h-dvh"
+<rover-app
+  class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] max-w-3xl mx-auto bg-[var(--gray-6)] grid h-dvh"
+>
+  <rover-grid
+    class="grid md:order-1 grid-rows-[min-content,1fr] overflow-hidden"
   >
-    <div class="grid md:order-1 grid-rows-[min-content,1fr] overflow-hidden">
-      <div
-        class="h-[44px] flex items-center justify-center px-4 bg-white border-b g size-full dark:bg-black border-[var(--gray-5)]"
-      >
-        <h1>Rover</h1>
-      </div>
-      <main use:handleScroll class="overflow-y-scroll isolate overlow-x-hidden">
-        <slot />
-      </main>
-    </div>
+    <rover-nav-bar
+      class="h-[44px] flex items-center justify-center px-4 bg-[var(--base)] border-b g size-full border-[var(--gray-5)]"
+    >
+      <h1>Rover</h1>
+    </rover-nav-bar>
+    <main use:handleScroll class="overflow-y-scroll isolate overlow-x-hidden">
+      <slot />
+    </main>
+  </rover-grid>
 
-    <TabBar />
-  </div>
-</div>
+  <TabBar />
+</rover-app>

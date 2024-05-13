@@ -1,4 +1,4 @@
-<div class="loader">
+<spinner>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -42,10 +42,10 @@
       d="M25.998,12.499h-5.501c-0.552,0-1.001,0.448-1.001,1.001c0,0.552,0.447,1,1.001,1h5.501c0.554,0,1.002-0.448,1.002-1 C27,12.946,26.552,12.499,25.998,12.499z"
     />
   </svg>
-</div>
+</spinner>
 
 <style>
-  .loader {
+  spinner {
     margin: 2.5rem auto;
     display: block;
     width: fit-content;

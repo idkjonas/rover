@@ -1,9 +1,7 @@
-/*
-Apple Colors
-https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/#system-colors
-*/
 :root {
-  /* Light mode */
+  --light-base: rgb(255, 255, 255);
+  --light-text: rgb(0, 0, 0);
+
   --light-gray-1: rgb(142, 142, 147);
   --light-gray-2: rgb(174, 174, 178);
   --light-gray-3: rgb(199, 199, 204);
@@ -20,7 +18,9 @@ https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/
   --light-teal: rgb(90, 200, 250);
   --light-yellow: rgb(255, 204, 0);
 
-  /* Dark mode */
+  --dark-base: rgb(0, 0, 0);
+  --dark-text: rgb(255, 255, 255);
+
   --dark-gray-1: rgb(142, 142, 147);
   --dark-gray-2: rgb(99, 99, 102);
   --dark-gray-3: rgb(72, 72, 74);
@@ -38,30 +38,32 @@ https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/
   --dark-yellow: rgb(255, 214, 10);
 }
 
-/* @media (prefers-color-scheme: no-preference) {} */
+:root {
+  --base: var(--light-base);
+  --text: var(--light-text);
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --gray-1: var(--light-gray-1);
-    --gray-2: var(--light-gray-2);
-    --gray-3: var(--light-gray-3);
-    --gray-4: var(--light-gray-4);
-    --gray-5: var(--light-gray-5);
-    --gray-6: var(--light-gray-6);
-    --blue: var(--light-blue);
-    --green: var(--light-green);
-    --indigo: var(--light-indigo);
-    --orange: var(--light-orange);
-    --pink: var(--light-pink);
-    --purple: var(--light-purple);
-    --red: var(--light-red);
-    --teal: var(--light-teal);
-    --yellow: var(--light-yellow);
-  }
+  --gray-1: var(--light-gray-1);
+  --gray-2: var(--light-gray-2);
+  --gray-3: var(--light-gray-3);
+  --gray-4: var(--light-gray-4);
+  --gray-5: var(--light-gray-5);
+  --gray-6: var(--light-gray-6);
+  --blue: var(--light-blue);
+  --green: var(--light-green);
+  --indigo: var(--light-indigo);
+  --orange: var(--light-orange);
+  --pink: var(--light-pink);
+  --purple: var(--light-purple);
+  --red: var(--light-red);
+  --teal: var(--light-teal);
+  --yellow: var(--light-yellow);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --base: var(--dark-base);
+    --text: var(--dark-text);
+
     --gray-1: var(--dark-gray-1);
     --gray-2: var(--dark-gray-2);
     --gray-3: var(--dark-gray-3);

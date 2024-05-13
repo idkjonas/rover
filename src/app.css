@@ -12,5 +12,5 @@ body {
 }
 
 body {
-  @apply bg-white text-black dark:bg-black dark:text-white;
+  @apply bg-[var(--base)] text-[var(--text)];
 }

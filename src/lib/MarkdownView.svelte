@@ -1,26 +1,34 @@
 <script>
   import SvelteMarkdown from "svelte-markdown";
+  import he from "he";
   export let source;
+  import { transformPlainTextToLink } from "$lib/utils";
 </script>
 
-<div rover-markdown>
-  <SvelteMarkdown {source} />
-</div>
+<rover-markdown-view class={$$restProps.class || ""}>
+  <SvelteMarkdown
+    source={transformPlainTextToLink(he.decode(String(source)))}
+  />
+</rover-markdown-view>
 
 <style>
-  [rover-markdown] :global(p:not(:last-child)) {
+  rover-markdown-view :global(p:not(:last-child)) {
     @apply mb-[1lh];
   }
 
-  [rover-markdown] :global(hr) {
+  rover-markdown-view :global(hr) {
     @apply h-4 opacity-0;
   }
 
-  [rover-markdown] :global(br) {
+  rover-markdown-view :global(br) {
     @apply mb-4;
   }
 
-  [rover-markdown] :global(a) {
+  rover-markdown-view :global(a) {
     @apply text-[var(--blue)] fine:hover:underline;
+  }
+
+  rover-markdown-view :global(ul) {
+    @apply list-disc pl-6;
   }
 </style>

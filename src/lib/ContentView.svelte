@@ -1,9 +1,9 @@
 <script>
   import Spinner from "$lib/Spinner.svelte";
   import Post from "$lib/Post.svelte";
-  import Comment from "$lib/Comment.svelte";
-  import { onDestroy, onMount } from "svelte";
-  import { hasScrolledToBottom, scrollPosition } from "$lib/stores";
+  import Comment from "$lib/comment/Comment.svelte";
+  import { onMount } from "svelte";
+  import { hasScrolledToBottom } from "$lib/stores";
 
   const POST_LIMIT = 8;
 
@@ -47,11 +47,10 @@
   }
 
   $: if ($hasScrolledToBottom === true) loadMore();
-
 </script>
 
 {#if list.length > 0}
-  <div class="grid grid-cols-1 gap-2">
+  <rover-content-view class="grid grid-cols-1 gap-2">
     {#each list as item}
       {#key item.data.id}
         {#if item.kind === "t3"}
@@ -61,7 +60,7 @@
         {/if}
       {/key}
     {/each}
-  </div>
+  </rover-content-view>
 
   <Spinner />
 {:else}
