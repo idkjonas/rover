@@ -62,13 +62,13 @@
     </GestureView>
 
     {#if comment.data.replies}
-      {#if !isCollapsed}
-        <rover-comment-replies transition:slide>
-          {#each comment.data.replies.data.children as reply}
+      {#each comment.data.replies.data.children as reply}
+        {#if !isCollapsed}
+          <rover-comment-replies transition:slide>
             <svelte:self comment={reply} {viewType} />
-          {/each}
-        </rover-comment-replies>
-      {/if}
+          </rover-comment-replies>
+        {/if}
+      {/each}
     {/if}
   </rover-comment>
 {/if}
