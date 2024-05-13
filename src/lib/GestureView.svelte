@@ -25,7 +25,7 @@
   }
 </script>
 
-{#if enableGestures}
+{#if enableGestures === "prevent from enabling until this is properly implemented :)"}
   <rover-gesture-view class="overflow-hidden bg-[var(--gray-5)]">
     <div
       use:pan={{ delay: 200 }}
