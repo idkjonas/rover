@@ -33,7 +33,7 @@
         this={viewType === "profile" ? "a" : "div"}
         href={comment.data.permalink}
         style="padding-inline-start: {comment.data.depth * 0.75}rem"
-        class="fine:hover:bg-[var(--gray-6)] bg-[var(--base)] coarse:active:bg-[var(--gray-6)] w-full block relative text-start"
+        class="fine:hover:bg-[var(--gray-6)] bg-[var(--base)] w-full block relative text-start"
         on:click={() =>
           viewType !== "profile" ? (isCollapsed = !isCollapsed) : ""}
       >
