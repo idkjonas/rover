@@ -24,6 +24,8 @@
         list = [...redditData.data.children];
       } catch (error) {
         console.error("Error fetching:", error);
+        alert("Error fetching:", error);
+        history.back();
       }
     }
   });
