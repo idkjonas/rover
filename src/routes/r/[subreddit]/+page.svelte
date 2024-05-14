@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>- r/{$page.params.subreddit.toLowerCase()}</title>
+  <title>Rover - r/{$page.params.subreddit.toLowerCase()}</title>
   {#if redditData}
     <meta name="theme-color" content={redditData.data.primary_color} />
   {/if}
