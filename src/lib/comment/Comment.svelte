@@ -9,29 +9,16 @@
   export let viewType = "normal";
 
   let isCollapsed = false;
-
-  function share() {
-    console.log(comment);
-  }
-
-  const actions = [
-    {},
-    {},
-    {
-      label: "share",
-      action: share,
-    },
-    {},
-  ];
 </script>
 
 {#if comment.kind !== "more"}
   <rover-comment class="grid grid-cols-1 relative text-[15px]">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <GestureView {actions}>
+    <GestureView>
       <svelte:element
         this={viewType === "profile" ? "a" : "div"}
         href={comment.data.permalink}
+        target="_blank"
         style="padding-inline-start: {comment.data.depth * 0.75}rem"
         class="fine:hover:bg-[var(--gray-6)] bg-[var(--base)] w-full block relative text-start"
         on:click={() =>

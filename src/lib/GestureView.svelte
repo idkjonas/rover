@@ -10,7 +10,7 @@
 
   const dragX = spring(0);
 
-  $: console.log(currentAction);
+  // $: console.log(currentAction);
 
   // $: console.log($dragX);
 

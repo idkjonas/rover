@@ -43,14 +43,7 @@
 <rover-app
   class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] max-w-3xl mx-auto bg-[var(--gray-6)] grid h-dvh"
 >
-  <rover-grid
-    class="grid md:order-1 grid-rows-[min-content,1fr] overflow-hidden"
-  >
-    <rover-nav-bar
-      class="h-[44px] flex items-center justify-center px-4 bg-[var(--base)] border-b g size-full border-[var(--gray-5)]"
-    >
-      <h1>Rover</h1>
-    </rover-nav-bar>
+  <rover-grid class="grid grid-rows-1 overflow-hidden md:order-1">
     <main use:handleScroll class="overflow-y-scroll isolate overlow-x-hidden">
       <slot />
     </main>

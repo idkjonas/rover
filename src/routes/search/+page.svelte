@@ -9,12 +9,12 @@
 
 <section class="grid grid-cols-1 gap-4 p-4">
   <search
-    class="flex bg-[var(--base)] items-center py-1.5 px-2.5 gap-1.5 rounded-md text-[var(--gray-1)]"
+    class="flex bg-[var(--base)] items-center pl-4 gap-1.5 rounded-md text-[var(--gray-1)]"
   >
     <Search size="20" />
     <input
       type="text"
-      class="outline-none placeholder:text-inherit grow"
+      class="outline-none h-[44px] placeholder:text-inherit grow"
       placeholder="Search Posts, Subreddits, Users"
       bind:value={query}
     />

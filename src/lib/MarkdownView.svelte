@@ -1,14 +1,10 @@
 <script>
   import SvelteMarkdown from "svelte-markdown";
-  import he from "he";
   export let source;
-  import { transformPlainTextToLink } from "$lib/utils";
 </script>
 
 <rover-markdown-view class={$$restProps.class || ""}>
-  <SvelteMarkdown
-    source={transformPlainTextToLink(he.decode(String(source)))}
-  />
+  <SvelteMarkdown {source} />
 </rover-markdown-view>
 
 <style>

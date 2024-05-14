@@ -12,7 +12,7 @@
     this={href !== "" ? "a" : "div"}
     class:hover:bg-[var(--gray-5)]={interactable}
     {href}
-    class="px-3 bg-[var(--base)] py-2 {$$restProps.class || ''}"
+    class="bg-[var(--base)] px-4 h-[44px] {$$restProps.class || ''}"
   >
     <slot />
   </svelte:element>

@@ -1,13 +1,7 @@
 <script>
-  import {
-    ArrowUpOutline,
-    LockClosed,
-    ChevronUp,
-    EllipsisHorizontal,
-  } from "svelte-ionicons";
+  import { ArrowUp, Lock, ChevronUp, Ellipsis } from "lucide-svelte";
   import { formatNumber } from "$lib/utils";
   import Flair from "$lib/Flair.svelte";
-  import { tap } from "svelte-gestures";
   import moment from "moment";
 
   export let comment;
@@ -20,6 +14,7 @@
   {/if}
   <a
     href="/u/{comment.data.author}"
+    target="_blank"
     class:!text-[var(--green)]={comment.data.distinguished === "moderator"}
     class:text-[var(--blue)]={comment.data.is_submitter}
     class="mr-2 font-semibold fine:hover:underline"
@@ -32,7 +27,7 @@
     <div class="flex items-center w-full gap-2">
       <div class="flex items-center gap-2">
         <div class="flex items-center">
-          <ArrowUpOutline size="14" />
+          <ArrowUp size="18" />
           {#if !comment.data.score_hidden}
             {formatNumber(comment.data.score)}
           {:else}
@@ -40,7 +35,7 @@
           {/if}
         </div>
         {#if comment.data.locked}
-          <LockClosed size="14" class="text-[var(--green)]" />
+          <Lock size="18" class="text-[var(--green)]" />
         {/if}
       </div>
       {#if comment.data.author_flair_text}
@@ -52,7 +47,7 @@
         {#if !collapsed}
           <div class="flex items-center gap-2">
             <button on:click|stopPropagation={() => console.log(comment)}>
-              <EllipsisHorizontal size="18" />
+              <Ellipsis size="18" />
             </button>
             {moment.unix(comment.data.created).fromNow()}
           </div>
