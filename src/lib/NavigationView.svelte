@@ -1,22 +1,27 @@
 <script>
   import { page } from "$app/stores";
-  import { pushState } from "$app/navigation";
+  import { hasScrolledToBottom } from "$lib/stores";
   import { fly } from "svelte/transition";
   import DetailsView from "$lib/views/DetailsView.svelte";
 
-  let navigationView;
+  let atBottom = false;
 
-  let navigationViewWidth;
-
-  $: if (navigationView) {
-    navigationViewWidth = navigationView.offsetWidth;
+  function scrollListener(node) {
+    node.addEventListener("scroll", () => {
+      atBottom = node.scrollHeight - node.offsetHeight - node.scrollTop < 1;
+      if (atBottom) {
+        hasScrolledToBottom.set(true);
+        setTimeout(() => {
+          hasScrolledToBottom.set(false);
+        }, 500);
+      }
+    });
   }
 </script>
 
 <!-- class:opacity-50={$page.state.showSubView} -->
 <rover-navigation-view
-  bind:this={navigationView}
-  on:scroll
+  use:scrollListener
   class="absolute inset-0 overflow-y-scroll transition-[transform,opacity] duration-300 isolate"
 >
   <slot />

@@ -3,8 +3,6 @@
   export let url;
   export let thumbnail = undefined;
   export let preview;
-
-  console.log(preview);
 </script>
 
 <a

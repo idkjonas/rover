@@ -1,5 +1,4 @@
 <script>
-  import { hasScrolledToBottom } from "$lib/stores";
   import moment from "moment";
   import TabBar from "./TabBar.svelte";
   import "../colors.css";
@@ -23,20 +22,6 @@
       yy: "%dy",
     },
   });
-
-  let atBottom = false;
-
-  function handleScroll(node) {
-    node.addEventListener("scroll", () => {
-      atBottom = node.scrollHeight - node.offsetHeight - node.scrollTop < 1;
-      if (atBottom) {
-        hasScrolledToBottom.set(true);
-        setTimeout(() => {
-          hasScrolledToBottom.set(false);
-        }, 500);
-      }
-    });
-  }
 </script>
 
 <rover-app

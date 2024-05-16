@@ -67,6 +67,8 @@
               alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
               class:max-h-[20rem]={viewType === "details"}
               class="object-contain bg-contain bg-center bg-no-repeat w-full max-h-[38rem] object-center mx-auto"
+              style="aspect-ratio: {post.data.preview.images[0].source
+                .width}/{post.data.preview.images[0].source.height}"
             />
           </div>
         {:else if post.data.is_video}
@@ -79,6 +81,8 @@
                 controls
                 playsinline
                 src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
+                style="aspect-ratio: {post.data.preview.images[0].source
+                  .width}/{post.data.preview.images[0].source.height}"
               >
                 <track kind="captions" />
               </video>

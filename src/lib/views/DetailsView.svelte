@@ -8,8 +8,6 @@
 
   let redditData;
 
-  console.log($page);
-
   async function fetchDetails() {
     try {
       const response = await fetch(
