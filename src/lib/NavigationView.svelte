@@ -29,7 +29,7 @@
 
 {#if $page.state.showSubView}
   <rover-sub-navigation-view
-    transition:fly={{ x: 100 }}
+    in:fly={{ x: 100 }}
     class="absolute inset-0 overflow-y-scroll z-50 size-full bg-[var(--background)]"
   >
     <button
