@@ -1,6 +1,5 @@
 <script>
   import { page } from "$app/stores";
-  import NavigationView from "$lib/NavigationView.svelte";
 
   import Post from "$lib/Post.svelte";
   import Comment from "$lib/comment/Comment.svelte";
@@ -9,10 +8,12 @@
 
   let redditData;
 
+  console.log($page);
+
   async function fetchDetails() {
     try {
       const response = await fetch(
-        `https://www.reddit.com/${$page.url.pathname}/.json`,
+        `https://www.reddit.com/${$page.state.item.data.permalink}/.json`,
       );
       redditData = await response.json();
     } catch (error) {
@@ -30,13 +31,12 @@
   }
 </script>
 
-<NavigationView>
-  {#if !redditData}
-    <Spinner />
-  {:else}
-    <Post {post} viewType="details" />
-    {#each comments as comment}
-      <Comment {comment} />
-    {/each}
-  {/if}
-</NavigationView>
+<Post post={$page.state.item} viewType="details" />
+
+{#if !redditData}
+  <Spinner />
+{:else}
+  {#each comments as comment}
+    <Comment {comment} />
+  {/each}
+{/if}

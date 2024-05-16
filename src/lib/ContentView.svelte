@@ -17,7 +17,7 @@
     if (list.length === 0) {
       try {
         const response = await fetch(
-          `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId}`,
+          `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId == undefined ? "0" : lastChildId}`,
         );
         redditData = await response.json();
 
@@ -52,7 +52,7 @@
 </script>
 
 {#if list.length > 0}
-  <rover-content-view class="grid grid-cols-1 gap-2">
+  <rover-content-view class="grid grid-cols-1 gap-2 bg-[var(--gray-6)]">
     {#each list as item}
       {#key item.data.id}
         {#if item.kind === "t3"}

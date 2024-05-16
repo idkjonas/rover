@@ -1,7 +1,12 @@
 export function formatNumber(number) {
   if (number <= 1000) return number;
-  const num = number / 1000;
-  return num.toFixed(1) + "K";
+  else if (number <= 1000000) {
+    const num = number / 1000;
+    return num.toFixed(1) + "K";
+  } else {
+    const num = number / 1000000;
+    return num.toFixed(1) + "M";
+  }
 }
 
 /* to be fixed and properly implemented

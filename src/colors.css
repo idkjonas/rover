@@ -18,6 +18,8 @@
   --light-teal: rgb(90, 200, 250);
   --light-yellow: rgb(255, 204, 0);
 
+  /*  */
+
   --dark-base: rgb(0, 0, 0);
   --dark-text: rgb(255, 255, 255);
 
@@ -57,6 +59,9 @@
   --red: var(--light-red);
   --teal: var(--light-teal);
   --yellow: var(--light-yellow);
+
+  --background: var(--light-gray-6);
+  --elevated: var(--light-base);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -79,5 +84,8 @@
     --red: var(--dark-red);
     --teal: var(--dark-teal);
     --yellow: var(--dark-yellow);
+
+    --background: var(--dark-base);
+    --elevated: var(--dark-gray-6);
   }
 }

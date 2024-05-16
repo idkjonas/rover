@@ -4,7 +4,6 @@
   import TabBar from "./TabBar.svelte";
   import "../colors.css";
   import "../app.css";
-  import { fly } from "svelte/transition";
 
   moment.updateLocale("en", {
     relativeTime: {
@@ -41,13 +40,11 @@
 </script>
 
 <rover-app
-  class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] max-w-3xl mx-auto bg-[var(--gray-6)] grid h-dvh"
+  class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] max-w-3xl mx-auto bg-[var(--background)] grid h-dvh"
 >
-  <rover-grid class="grid grid-rows-1 overflow-hidden md:order-1">
-    <main use:handleScroll class="overflow-y-scroll isolate overlow-x-hidden">
-      <slot />
-    </main>
-  </rover-grid>
+  <div class="relative grid grid-rows-1 overflow-hidden isolate md:order-1">
+    <slot />
+  </div>
 
   <TabBar />
 </rover-app>

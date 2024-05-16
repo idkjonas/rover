@@ -1,6 +1,6 @@
 <script>
   export let interactable = false;
-  export let href = undefined;
+  export let href = "";
 
   if (href !== "") {
     interactable = true;
@@ -12,7 +12,8 @@
     this={href !== "" ? "a" : "div"}
     class:hover:bg-[var(--gray-5)]={interactable}
     {href}
-    class="bg-[var(--base)] px-4 h-[44px] {$$restProps.class || ''}"
+    class="bg-[var(--elevated)] flex px-4 min-h-[44px] {$$restProps.class ||
+      ''}"
   >
     <slot />
   </svelte:element>
