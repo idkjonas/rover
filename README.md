@@ -9,10 +9,12 @@ Rover is built in [Svelte](https://svelte.dev/)
 - Fully fledged comment tree view
 - Search page
 - Home, Subreddit, and User views
+- dual window desktop view
 
 ## To-do
 
+- videos on mobile
+- media viewer
 - Logging in
 - Fully implement swipe gestures
 - Settings
-- Stacked navigation

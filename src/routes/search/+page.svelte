@@ -1,7 +1,7 @@
 <script>
   import { Search, Tag, CircleUserRound } from "lucide-svelte";
 
-  import NavigationView from "$lib/NavigationView.svelte";
+  import NavigationView from "$lib/views/NavigationView.svelte";
 
   import ListView from "$lib/list/ListView.svelte";
   import ListItem from "$lib/list/ListItem.svelte";

@@ -2,25 +2,22 @@
   import { ArrowUp, Lock, ChevronUp, Ellipsis } from "lucide-svelte";
   import { formatNumber } from "$lib/utils";
   import Flair from "$lib/Flair.svelte";
+  import Author from "$lib/Author.svelte";
   import moment from "moment";
 
   export let comment;
   export let collapsed = false;
 </script>
 
-<rover-comment-meta class="flex items-center">
+<rover-comment-meta class="flex items-center gap-2">
   {#if comment.data.depth > 0}
     <div class="absolute left-0 w-3 h-full"></div>
   {/if}
-  <a
-    href="/u/{comment.data.author}"
-    target="_blank"
-    class:!text-[var(--green)]={comment.data.distinguished === "moderator"}
-    class:text-[var(--blue)]={comment.data.is_submitter}
-    class="mr-2 font-semibold fine:hover:underline"
-  >
-    {comment.data.author}
-  </a>
+  <Author
+    author={comment.data.author}
+    op={comment.data.is_submitter}
+    mod={comment.data.distinguished === "moderator"}
+  />
   <div
     class="flex items-center justify-between overflow-hidden text-[var(--gray-1)] grow"
   >

@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import moment from "moment";
   import TabBar from "./TabBar.svelte";
   import "../colors.css";
@@ -25,9 +26,14 @@
 </script>
 
 <rover-app
-  class="grid-rows-[1fr,min-content] md:grid-cols-[min-content,1fr] max-w-3xl mx-auto bg-[var(--background)] grid h-dvh"
+  class="grid-rows-[1fr,min-content]
+  {$page.state.showSubView ? 'max-w-7xl' : 'max-w-3xl'}
+   md:grid-cols-[min-content,1fr] mx-auto bg-[var(--background)] grid h-dvh"
 >
-  <div class="relative grid grid-rows-1 overflow-hidden isolate md:order-1">
+  <div
+    class="relative grid grid-cols-1 grid-rows-1 isolate md:order-1 md:h-dvh
+    {$page.state.showSubView ? 'md:grid-cols-2' : 'md:grid-cols-1'}"
+  >
     <slot />
   </div>
 

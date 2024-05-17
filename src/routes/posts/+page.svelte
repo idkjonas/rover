@@ -1,6 +1,6 @@
 <script>
-  import NavigationView from "$lib/NavigationView.svelte";
-  import ContentView from "$lib/ContentView.svelte";
+  import NavigationView from "$lib/views/NavigationView.svelte";
+  import ContentView from "$lib/views/ContentView.svelte";
 </script>
 
 <NavigationView>

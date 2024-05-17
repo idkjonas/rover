@@ -1,6 +1,6 @@
 <script>
-  import MarkdownView from "$lib/MarkdownView.svelte";
-  import GestureView from "$lib/GestureView.svelte";
+  import MarkdownView from "$lib/views/MarkdownView.svelte";
+  import GestureView from "$lib/views/GestureView.svelte";
   import { slide } from "svelte/transition";
   import CommentMeta from "$lib/comment/CommentMeta.svelte";
   import "$lib/comment/themes.css";
@@ -8,7 +8,13 @@
   export let comment;
   export let viewType = "normal";
 
-  let isCollapsed = false;
+  let isCollapsed;
+
+  if (comment.data.author === "AutoModerator") {
+    isCollapsed = true;
+  } else {
+    isCollapsed = false;
+  }
 </script>
 
 {#if comment.kind !== "more"}
@@ -18,9 +24,8 @@
       <svelte:element
         this={viewType === "profile" ? "a" : "div"}
         href={comment.data.permalink}
-        target="_blank"
         style="padding-inline-start: {comment.data.depth * 0.75}rem"
-        class="fine:hover:bg-[var(--gray-6)] bg-[var(--base)] w-full block relative text-start"
+        class="fine:hover:bg-[var(--gray-7)] bg-[var(--base)] w-full block relative text-start"
         on:click={() =>
           viewType !== "profile" ? (isCollapsed = !isCollapsed) : ""}
       >

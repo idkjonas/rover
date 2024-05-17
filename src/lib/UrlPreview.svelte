@@ -2,7 +2,8 @@
   import { Link2, ChevronRight } from "lucide-svelte";
   export let url;
   export let thumbnail = undefined;
-  export let preview;
+
+  let dontRenderThumbnail;
 </script>
 
 <a
@@ -11,11 +12,12 @@
   title={url}
   class="bg-[var(--gray-6)] overflow-clip block rounded-[10px]"
 >
-  {#if thumbnail}
+  {#if thumbnail && !dontRenderThumbnail}
     <img
       src={thumbnail}
       class="object-cover w-full max-h-60"
-      alt="{url}'s thumbnail"
+      alt={url}
+      on:error={() => (dontRenderThumbnail = true)}
     />
   {/if}
 

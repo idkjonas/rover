@@ -1,8 +1,11 @@
 <script>
-  import MarkdownView from "$lib/MarkdownView.svelte";
+  import MarkdownView from "$lib/views/MarkdownView.svelte";
   import Flair from "$lib/Flair.svelte";
+  import Author from "$lib/Author.svelte";
+
+  import { page } from "$app/stores";
   import UrlPreview from "$lib/UrlPreview.svelte";
-  import GestureView from "$lib/GestureView.svelte";
+  import GestureView from "$lib/views/GestureView.svelte";
   import { pushState } from "$app/navigation";
 
   import moment from "moment";
@@ -33,20 +36,23 @@
         this={viewType !== "details" ? "a" : "div"}
         id={post.data.id}
         on:click={() =>
-          pushState(post.data.permalink, {
+          viewType !== "details" &&
+          pushState("", {
             showSubView: true,
             subViewType: "details",
             item: post,
           })}
-        style=" grid-template-columns: [full-start] 1rem [normal-start] 1fr [normal-end] 1rem [full-end];"
-        class="grid py-4 border-[var(--gray-5)] bg-[var(--base)] gap-y-4"
+        class:!bg-[var(--gray-7)]={$page.state.item === post &&
+          viewType !== "details"}
+        style="grid-template-columns: [full-start] 1rem [normal-start] 1fr [normal-end] 1rem [full-end];"
+        class="grid transition-colors overflow-clip py-4 border-[var(--gray-5)] bg-[var(--base)] gap-y-4"
       >
         <div class="col-[normal]">
           <h3
             class:!text-lg={viewType === "details"}
             class:!font-medium={viewType === "details"}
           >
-            {post.data.title}
+            <MarkdownView source={post.data.title} />
 
             {#if post.data.link_flair_text}
               <Flair>{post.data.link_flair_text}</Flair>
@@ -60,12 +66,14 @@
         </div>
 
         {#if post.data.post_hint === "image"}
-          <div class="col-[full] overflow-clip bg-[var(--gray-6)]">
+          <div
+            class="col-[full] md:col-[normal] md:rounded-xl overflow-clip bg-[var(--gray-6)]"
+          >
             <img
               loading="lazy"
               src={post.data.url}
               alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
-              class:max-h-[20rem]={viewType === "details"}
+              class:!max-h-[20rem]={viewType === "details"}
               class="object-contain bg-contain bg-center bg-no-repeat w-full max-h-[38rem] object-center mx-auto"
               style="aspect-ratio: {post.data.preview.images[0].source
                 .width}/{post.data.preview.images[0].source.height}"
@@ -77,8 +85,10 @@
             <video
                 loading="lazy"
                 class:max-h-[20rem]={viewType === "details"}
-                class="object-contain snap-x w-full max-h-[38rem] object-center mx-auto"
+                class="object-contain max-w-full max-h-[38rem] object-center mx-auto"
                 controls
+                muted
+                autoplay
                 playsinline
                 src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
                 style="aspect-ratio: {post.data.preview.images[0].source
@@ -106,17 +116,13 @@
           </div>
         {:else if new URL(post.data.url).pathname !== post.data.permalink}
           <div class="col-[normal]">
-            <UrlPreview
-              url={post.data.url}
-              thumbnail={post.data.thumbnail}
-              preview={post.data.preview}
-            />
+            <UrlPreview url={post.data.url} thumbnail={post.data.thumbnail} />
           </div>
         {/if}
 
         {#if post.data.selftext}
           <p
-            class="col-[normal] text-[15px]"
+            class="col-[full] p-4 text-[15px] overflow-x-scroll"
             class:text-[var(--gray-1)]={viewType !== "details"}
             class:line-clamp-3={viewType !== "details"}
             class:max-h-[3lh]={viewType !== "details"}
@@ -138,18 +144,11 @@
                 {#if viewType === "subreddit"}
                   <span>
                     by
-                    <a
-                      href={`/u/${post.data.author}`}
-                      target="_blank"
-                      class="font-medium fine:hover:underline"
-                    >
-                      {post.data.author}
-                    </a>
+                    <Author author={post.data.author} />
                   </span>
                 {:else}
                   <a
                     href={`/r/${post.data.subreddit}`}
-                    target="_blank"
                     class="font-medium fine:hover:underline"
                   >
                     {post.data.subreddit}
@@ -160,19 +159,12 @@
                   in
                   <a
                     href={`/r/${post.data.subreddit}`}
-                    target="_blank"
                     class="font-medium fine:hover:underline"
                   >
                     {post.data.subreddit}
                   </a>
                   by
-                  <a
-                    href={`/u/${post.data.author}`}
-                    target="_blank"
-                    class="font-medium fine:hover:underline"
-                  >
-                    {post.data.author}
-                  </a>
+                  <Author author={post.data.author} />
                 </span>
               {/if}
             </h4>

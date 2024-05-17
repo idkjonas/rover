@@ -8,6 +8,8 @@
   --light-gray-4: rgb(209, 209, 214);
   --light-gray-5: rgb(229, 229, 234);
   --light-gray-6: rgb(242, 242, 247);
+  --light-gray-7: rgb(247, 247, 247);
+
   --light-blue: rgb(0, 122, 255);
   --light-green: rgb(52, 199, 89);
   --light-indigo: rgb(88, 86, 214);
@@ -29,6 +31,8 @@
   --dark-gray-4: rgb(58, 58, 60);
   --dark-gray-5: rgb(44, 44, 46);
   --dark-gray-6: rgb(28, 28, 30);
+  --dark-gray-7: rgb(13, 13, 13);
+
   --dark-blue: rgb(10, 132, 255);
   --dark-green: rgb(48, 209, 88);
   --dark-indigo: rgb(94, 92, 230);
@@ -50,6 +54,8 @@
   --gray-4: var(--light-gray-4);
   --gray-5: var(--light-gray-5);
   --gray-6: var(--light-gray-6);
+  --gray-7: var(--light-gray-7);
+
   --blue: var(--light-blue);
   --green: var(--light-green);
   --indigo: var(--light-indigo);
@@ -75,6 +81,8 @@
     --gray-4: var(--dark-gray-4);
     --gray-5: var(--dark-gray-5);
     --gray-6: var(--dark-gray-6);
+    --gray-7: var(--dark-gray-7);
+
     --blue: var(--dark-blue);
     --green: var(--dark-green);
     --indigo: var(--dark-indigo);

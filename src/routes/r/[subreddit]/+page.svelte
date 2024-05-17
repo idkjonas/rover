@@ -1,6 +1,7 @@
 <script>
-  import NavigationView from "$lib/NavigationView.svelte";
-  import ContentView from "$lib/ContentView.svelte";
+  import NavigationView from "$lib/views/NavigationView.svelte";
+  import ContentView from "$lib/views/ContentView.svelte";
+  import MarkdownView from "$lib/views/MarkdownView.svelte";
 
   import { page } from "$app/stores";
   import { formatNumber } from "$lib/utils";
@@ -48,11 +49,15 @@
         {/if}
       {/if}
     </div>
-    <img
-      src={redditData && redditData.data.icon_img}
-      alt="r/{$page.params.subreddit} icon"
-      class="absolute rounded-full size-20 right-4 top-24"
-    />
+    {#if redditData}
+      <img
+        src={`https://${
+          new URL(redditData.data.community_icon).hostname
+        }${new URL(redditData.data.community_icon).pathname}`}
+        alt="r/{$page.params.subreddit} icon"
+        class="absolute rounded-full size-20 right-4 top-24"
+      />
+    {/if}
 
     <div class="p-4">
       <h1 class="mb-2 text-2xl font-semibold">
@@ -63,7 +68,7 @@
         {/if}
       </h1>
       {#if redditData}
-        <p class="text-[15px]">{redditData.data.public_description}</p>
+        <MarkdownView source={redditData.data.public_description} />
       {/if}
 
       {#if redditData}

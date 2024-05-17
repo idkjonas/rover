@@ -1,9 +1,10 @@
 <script>
-  import NavigationView from "$lib/NavigationView.svelte";
-  import MarkdownView from "$lib/MarkdownView.svelte";
+  import NavigationView from "$lib/views/NavigationView.svelte";
+  import MarkdownView from "$lib/views/MarkdownView.svelte";
   import ListView from "$lib/list/ListView.svelte";
   import ListItem from "$lib/list/ListItem.svelte";
   import { ChevronRight } from "lucide-svelte";
+  import { page } from "$app/stores";
 
   let readme;
 
@@ -20,6 +21,10 @@
   }
 
   fetchReadme();
+
+  $: if ($page) {
+    console.log($page.state);
+  }
 </script>
 
 <NavigationView>
