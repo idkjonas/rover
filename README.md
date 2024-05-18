@@ -9,6 +9,7 @@ Features
 - Home, Subreddit, and User views
 - dual window desktop view
 
+
 To-do
 
 - Video controls
