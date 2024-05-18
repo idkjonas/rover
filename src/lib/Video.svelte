@@ -29,7 +29,7 @@
         isMuted = !isMuted;
         currentTime = video.currentTime;
       }}
-      class="absolute z-[999] flex top-auto items-center justify-center p-2 rounded-md size-10 bg-black/80 bottom-2 right-2"
+      class="absolute z-[999] text-white flex top-auto items-center justify-center p-2 rounded-md size-10 bg-black/80 bottom-2 right-2"
     >
       {#if isMuted}
         <div transition:scale class="absolute">
