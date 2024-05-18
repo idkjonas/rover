@@ -29,11 +29,11 @@
   }
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
   {#if post}
     <title>{post.data.title}</title>
   {/if}
-</svelte:head>
+</svelte:head> -->
 
 <Post post={$page.state.item} viewType="details" />
 

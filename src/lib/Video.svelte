@@ -68,7 +68,7 @@
     playsinline
     style="aspect-ratio: {post.data.preview.images[0].source.width}/{post.data
       .preview.images[0].source.height}"
-    class="h-full mx-auto"
+    class="max-h-full mx-auto"
   >
     <source src="{post.data.url}/DASH_1080.mp4" type="video/mp4" />
     <source src="{post.data.url}/DASH_720.mp4" type="video/mp4" />
