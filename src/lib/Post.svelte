@@ -1,4 +1,6 @@
 <script>
+  import { selectedMedia } from "$lib/stores";
+
   import MarkdownView from "$lib/views/MarkdownView.svelte";
   import Flair from "$lib/Flair.svelte";
   import Author from "$lib/Author.svelte";
@@ -6,6 +8,8 @@
   import { page } from "$app/stores";
   import UrlPreview from "$lib/UrlPreview.svelte";
   import GestureView from "$lib/views/GestureView.svelte";
+  import Media from "$lib/Media.svelte";
+
   import { pushState } from "$app/navigation";
 
   import moment from "moment";
@@ -25,6 +29,8 @@
 
   export let post;
   export let viewType = undefined;
+
+  console.log(post);
 </script>
 
 {#if post}
@@ -52,10 +58,13 @@
             class:!text-lg={viewType === "details"}
             class:!font-medium={viewType === "details"}
           >
-            <MarkdownView source={post.data.title} />
+            {@html post.data.title}
 
             {#if post.data.link_flair_text}
-              <Flair>{post.data.link_flair_text}</Flair>
+              <Flair text={post.data.link_flair_text} />
+            {/if}
+            {#if post.data.over_18}
+              <Flair nsfw />
             {/if}
           </h3>
           {#if viewType === "details"}
@@ -66,69 +75,55 @@
         </div>
 
         {#if post.data.post_hint === "image"}
-          <div
-            class="col-[full] md:col-[normal] md:rounded-xl overflow-clip bg-[var(--gray-6)]"
+          <button
+            on:click|stopPropagation={() => selectedMedia.set(post)}
+            class="col-[full] md:col-[normal] md:rounded-xl bg-[var(--gray-6)]"
           >
-            <img
-              loading="lazy"
-              src={post.data.url}
-              alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
-              class:!max-h-[20rem]={viewType === "details"}
-              class="object-contain bg-contain bg-center bg-no-repeat w-full max-h-[38rem] object-center mx-auto"
-              style="aspect-ratio: {post.data.preview.images[0].source
-                .width}/{post.data.preview.images[0].source.height}"
+            <Media
+              {post}
+              {viewType}
+              class="w-full max-h-96 col-[full] md:col-[normal] md:rounded-xl object-contain
+            {viewType === 'details' ? 'max-h-[20rem]' : 'max-h-[38rem]'}"
             />
-          </div>
+          </button>
         {:else if post.data.is_video}
-          <div class="col-[full] overflow-clip bg-[var(--gray-6)]">
-            <!-- prettier-ignore -->
-            <video
-                loading="lazy"
-                class:max-h-[20rem]={viewType === "details"}
-                class="object-contain max-w-full max-h-[38rem] object-center mx-auto"
-                controls
-                muted
-                autoplay
-                playsinline
-                src="https://sd.redditsave.com/download.php?permalink=https://reddit.com/&video_url={post.data.media.reddit_video.dash_url}?source=fallback&audio_url={post.data.media.reddit_video.dash_url}?source=fallback"
-                style="aspect-ratio: {post.data.preview.images[0].source
-                  .width}/{post.data.preview.images[0].source.height}"
-              >
-                <track kind="captions" />
-              </video>
-          </div>
-        {:else if post.data.is_gallery}
-          <div
-            class="flex gap-4 col-[full] px-4 overflow-x-scroll snap-x bg-[var(--base)] snap-mandatory"
+          <button
+            on:click|stopPropagation={() => selectedMedia.set(post)}
+            class="col-[full] {viewType === 'details'
+              ? 'max-h-[20rem]'
+              : 'max-h-[38rem]'}"
           >
-            {#each post.data.gallery_data.items as image}
-              <div
-                class="overflow-clip snap-center grid place-items-center shrink-0 rounded-xl w-[calc(100%-1rem)] bg-[var(--gray-6)]"
-              >
-                <img
-                  src="https://i.redd.it/{image.media_id}.jpg"
-                  loading="lazy"
-                  alt="{post.data.subreddit_name_prefixed} - {post.data.title}"
-                  class="object-contain max-h-[24rem] object-center"
-                />
-              </div>
-            {/each}
-          </div>
-        {:else if new URL(post.data.url).pathname !== post.data.permalink}
+            <Media {post} class="relative w-full h-full " />
+          </button>
+        {:else if post.data.is_gallery}
+          <button
+            on:click|stopPropagation={() => selectedMedia.set(post)}
+            class="col-[full] md:col-[normal] md:rounded-xl overflow-clip gap-1 bg-[var(--gray-6)] grid grid-cols-[50%,50%] max-h-[24rem]"
+          >
+            <Media
+              {post}
+              {viewType}
+              class="object-cover size-full overflow-clip [&:nth-of-type(1)]:row-span-2 [&:not(:nth-of-type(1),:nth-of-type(2),:nth-of-type(3))]:hidden"
+            />
+          </button>
+        {:else if !post.data.is_self}
           <div class="col-[normal]">
             <UrlPreview url={post.data.url} thumbnail={post.data.thumbnail} />
           </div>
         {/if}
 
         {#if post.data.selftext}
-          <p
-            class="col-[full] p-4 text-[15px] overflow-x-scroll"
-            class:text-[var(--gray-1)]={viewType !== "details"}
-            class:line-clamp-3={viewType !== "details"}
-            class:max-h-[3lh]={viewType !== "details"}
-          >
-            <MarkdownView source={post.data.selftext} />
-          </p>
+          {#if viewType === "details"}
+            <p class="col-[full] p-4 text-[15px] overflow-hidden">
+              <MarkdownView source={post.data.selftext} />
+            </p>
+          {:else}
+            <p
+              class="col-[normal] text-[15px] text-[var(--gray-1)] line-clamp-3"
+            >
+              {@html post.data.selftext}
+            </p>
+          {/if}
         {/if}
 
         <div

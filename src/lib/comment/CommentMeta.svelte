@@ -37,7 +37,7 @@
       </div>
       {#if comment.data.author_flair_text}
         <div class="overflow-hidden shrink grow-0">
-          <Flair>{comment.data.author_flair_text}</Flair>
+          <Flair text={comment.data.author_flair_text} />
         </div>
       {/if}
       <div class="flex items-center self-end justify-end grow">

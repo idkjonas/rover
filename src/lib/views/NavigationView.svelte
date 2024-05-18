@@ -4,6 +4,7 @@
   import DetailsView from "$lib/views/DetailsView.svelte";
   import { pushState } from "$app/navigation";
   import { X } from "lucide-svelte";
+  import { slide } from "svelte/transition";
 
   let atBottom = false;
 
@@ -29,10 +30,10 @@
 
 {#if $page.state.showSubView}
   <rover-sub-navigation-view
-    class="absolute md:border-l border-[var(--gray-5)] md:static inset-0 overflow-scroll z-50 size-full bg-[var(--gray-6)]"
+    class="absolute md:border-l border-[var(--gray-5)] md:static inset-0 overflow-scroll z-40 size-full bg-[var(--gray-6)]"
   >
     <div
-      class="w-full items-center flex p-2 -mb-4 bg-[var(--base)] sticky top-0 z-50"
+      class="w-full items-center flex p-2 -mb-4 bg-[var(--base)] sticky top-0 z-40"
     >
       <button
         on:click={() => {

@@ -50,13 +50,15 @@
       {/if}
     </div>
     {#if redditData}
-      <img
-        src={`https://${
-          new URL(redditData.data.community_icon).hostname
-        }${new URL(redditData.data.community_icon).pathname}`}
-        alt="r/{$page.params.subreddit} icon"
-        class="absolute rounded-full size-20 right-4 top-24"
-      />
+      {#if redditData.data.community_icon}
+        <img
+          src={`https://${
+            new URL(redditData.data.community_icon).hostname
+          }${new URL(redditData.data.community_icon).pathname}`}
+          alt="r/{$page.params.subreddit} icon"
+          class="absolute rounded-full size-20 right-4 top-24"
+        />
+      {/if}
     {/if}
 
     <div class="p-4">
@@ -68,7 +70,10 @@
         {/if}
       </h1>
       {#if redditData}
-        <MarkdownView source={redditData.data.public_description} />
+        <MarkdownView
+          class="line-clamp-3"
+          source={redditData.data.public_description}
+        />
       {/if}
 
       {#if redditData}

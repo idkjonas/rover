@@ -1,9 +1,11 @@
 <script>
   import { page } from "$app/stores";
+  import { selectedMedia } from "$lib/stores";
   import moment from "moment";
   import TabBar from "./TabBar.svelte";
   import "../colors.css";
   import "../app.css";
+  import MediaView from "$lib/views/MediaView.svelte";
 
   moment.updateLocale("en", {
     relativeTime: {
@@ -26,6 +28,7 @@
 </script>
 
 <rover-app
+  data-vaul-drawer-wrapper
   class="grid-rows-[1fr,min-content]
   {$page.state.showSubView ? 'max-w-7xl' : 'max-w-3xl'}
    md:grid-cols-[min-content,1fr] mx-auto bg-[var(--background)] grid h-dvh"
@@ -39,3 +42,5 @@
 
   <TabBar />
 </rover-app>
+
+<MediaView post={$selectedMedia} />

@@ -12,36 +12,38 @@
 
   let redditData;
   let list = [];
+  let loadedIds = new Set();
 
   onMount(async () => {
     if (list.length === 0) {
-      try {
-        const response = await fetch(
-          `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId == undefined ? "0" : lastChildId}`,
-        );
-        redditData = await response.json();
-
-        list = [...redditData.data.children];
-      } catch (error) {
-        console.error("Error fetching:", error);
-        alert("Error fetching:", error);
-        history.back();
-      }
+      await fetchPosts();
     }
   });
 
   let lastChildId;
 
-  async function loadMore() {
+  async function fetchPosts() {
     try {
       const response = await fetch(
-        `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId}`,
+        `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId == undefined ? "0" : lastChildId}`,
       );
       redditData = await response.json();
-      list = [...list, ...redditData.data.children];
+
+      const newItems = redditData.data.children.filter(
+        (item) => !loadedIds.has(item.data.id),
+      );
+      newItems.forEach((item) => loadedIds.add(item.data.id));
+
+      list = [...list, ...newItems];
     } catch (error) {
       console.error("Error fetching:", error);
+      alert("Error fetching:", error);
+      history.back();
     }
+  }
+
+  async function loadMore() {
+    await fetchPosts();
   }
 
   $: if (list.length > 0) {
@@ -53,14 +55,12 @@
 
 {#if list.length > 0}
   <rover-content-view class="grid grid-cols-1 gap-2 bg-[var(--gray-6)]">
-    {#each list as item}
-      {#key item.data.id}
-        {#if item.kind === "t3"}
-          <Post post={item} {viewType} />
-        {:else if item.kind === "t1"}
-          <Comment comment={item} {viewType} />
-        {/if}
-      {/key}
+    {#each list as item (item.data.id)}
+      {#if item.kind === "t3"}
+        <Post post={item} {viewType} />
+      {:else if item.kind === "t1"}
+        <Comment comment={item} {viewType} />
+      {/if}
     {/each}
   </rover-content-view>
 
