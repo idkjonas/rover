@@ -4,7 +4,6 @@
   import DetailsView from "$lib/views/DetailsView.svelte";
   import { pushState } from "$app/navigation";
   import { X } from "lucide-svelte";
-  import { slide } from "svelte/transition";
 
   let atBottom = false;
 

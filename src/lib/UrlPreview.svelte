@@ -1,7 +1,8 @@
 <script>
-  import { Link2, ChevronRight } from "lucide-svelte";
+  import { Compass, ChevronRight } from "lucide-svelte";
   export let url;
-  export let thumbnail = undefined;
+  export let preview;
+  export let viewType;
 
   let dontRenderThumbnail;
 </script>
@@ -12,24 +13,45 @@
   title={url}
   class="bg-[var(--gray-6)] overflow-clip block rounded-[10px]"
 >
-  {#if thumbnail && !dontRenderThumbnail}
-    <img
-      src={thumbnail}
-      class="object-cover w-full max-h-60"
-      alt={url}
-      on:error={() => (dontRenderThumbnail = true)}
-    />
-  {/if}
+  {#if viewType !== "details"}
+    {#if preview && !dontRenderThumbnail}
+      <img
+        class="object-cover w-full max-h-60"
+        src={preview.images[0].source.url.replaceAll("&amp;", "&")}
+        alt="thumbnail"
+        on:error={() => (dontRenderThumbnail = true)}
+      />
+    {/if}
 
-  <div
-    class="grid grid-cols-[min-content,1fr,min-content] pr-3 py-3 text-[var(--gray-1)]"
-  >
-    <div class="border-r px-3 mr-3 border-[var(--gray-4)]">
-      <Link2 />
+    <div
+      class="grid grid-cols-[min-content,1fr,min-content] pr-3 py-3 text-[var(--gray-1)]"
+    >
+      <div class="border-r px-3 mr-3 border-[var(--gray-4)]">
+        <Compass />
+      </div>
+      <div class="truncate">
+        {url}
+      </div>
+      <ChevronRight />
     </div>
-    <div class="truncate">
-      {url}
+  {:else}
+    <div class="grid grid-cols-[min-content,1fr]">
+      {#if preview && !dontRenderThumbnail}
+        <img
+          class="object-cover w-12 h-full mr-3 max-w-none"
+          src={preview.images[0].source.url.replaceAll("&amp;", "&")}
+          alt="thumbnail"
+          on:error={() => (dontRenderThumbnail = true)}
+        />
+      {/if}
+      <div
+        class="grid grid-cols-[1fr,min-content] py-4 pr-3 text-[var(--gray-1)]"
+      >
+        <div class="truncate">
+          {url}
+        </div>
+        <ChevronRight />
+      </div>
     </div>
-    <ChevronRight />
-  </div>
+  {/if}
 </a>

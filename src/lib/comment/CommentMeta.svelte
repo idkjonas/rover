@@ -1,5 +1,5 @@
 <script>
-  import { ArrowUp, Lock, ChevronUp, Ellipsis } from "lucide-svelte";
+  import { ArrowUp, Lock, Ellipsis, ChevronDown } from "lucide-svelte";
   import { formatNumber } from "$lib/utils";
   import Flair from "$lib/Flair.svelte";
   import Author from "$lib/Author.svelte";
@@ -49,7 +49,7 @@
             {moment.unix(comment.data.created).fromNow()}
           </div>
         {:else}
-          <ChevronUp size="22" />
+          <ChevronDown size="22" class="text-[var(--gray-4)]" />
         {/if}
       </div>
     </div>

@@ -4,6 +4,7 @@
   import MarkdownView from "$lib/views/MarkdownView.svelte";
   import Flair from "$lib/Flair.svelte";
   import Author from "$lib/Author.svelte";
+  import { settings } from "$lib/settings";
 
   import { page } from "$app/stores";
   import UrlPreview from "$lib/UrlPreview.svelte";
@@ -108,7 +109,11 @@
           </button>
         {:else if !post.data.is_self}
           <div class="col-[normal]">
-            <UrlPreview url={post.data.url} thumbnail={post.data.thumbnail} />
+            <UrlPreview
+              url={post.data.url}
+              preview={post.data.preview}
+              {viewType}
+            />
           </div>
         {/if}
 
@@ -190,17 +195,19 @@
             <div
               class="actions *:size-9 flex gap-1 fine:hover:*:bg-[var(--gray-6)] *:rounded-md *:flex *:items-center *:justify-center"
             >
-              <button>
-                <Ellipsis size="25" />
-              </button>
+              {#if $settings.appearance.showVotingButtons}
+                <button>
+                  <Ellipsis size="25" />
+                </button>
 
-              <button>
-                <ArrowUp size="25" />
-              </button>
+                <button>
+                  <ArrowUp size="25" />
+                </button>
 
-              <button>
-                <ArrowDown size="25" />
-              </button>
+                <button>
+                  <ArrowDown size="25" />
+                </button>
+              {/if}
             </div>
           {/if}
         </div>

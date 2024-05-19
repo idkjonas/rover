@@ -3,6 +3,7 @@
   import GestureView from "$lib/views/GestureView.svelte";
   import { slide } from "svelte/transition";
   import CommentMeta from "$lib/comment/CommentMeta.svelte";
+  import { settings } from "$lib/settings";
   import "$lib/comment/themes.css";
 
   export let comment;
@@ -10,7 +11,10 @@
 
   let isCollapsed;
 
-  if (comment.data.author === "AutoModerator") {
+  if (
+    comment.data.author === "AutoModerator" &&
+    $settings.general.collapseAutomoderator
+  ) {
     isCollapsed = true;
   } else {
     isCollapsed = false;

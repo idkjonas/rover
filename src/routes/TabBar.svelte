@@ -1,6 +1,5 @@
 <script>
   import { page } from "$app/stores";
-  import { hasScrolledToBottom } from "$lib/stores";
   import { Newspaper, Mail, CircleUserRound, Search, Cog } from "lucide-svelte";
 </script>
 
@@ -19,16 +18,20 @@
         <Newspaper size="26" />
         <span>Posts</span>
       </a>
+      <!-- href="/inbox" -->
       <a
-        href="/inbox"
+        class="opacity-50 pointer-events-none"
+        title="Coming soon!"
         data-sveltekit-replacestate
         class:active={$page.url.pathname === "/inbox"}
       >
         <Mail size="26" />
         <span>Inbox</span>
       </a>
+      <!-- href="/account" -->
       <a
-        href="/account"
+        class="opacity-50 pointer-events-none"
+        title="Coming soon!"
         data-sveltekit-replacestate
         class:active={$page.url.pathname === "/account"}
       >

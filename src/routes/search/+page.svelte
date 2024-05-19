@@ -11,6 +11,8 @@
 
 <NavigationView>
   <section class="grid h-fit grid-cols-1 gap-4 p-4 bg-[var(--background)]">
+    <h1 class="text-3xl font-medium">Search</h1>
+
     <ListView>
       <ListItem class="flex items-center gap-2">
         <Search size="20" class="text-[var(--gray-1)]" />

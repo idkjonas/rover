@@ -1,7 +1,7 @@
 <script>
   export let nsfw = false;
 
-  export let text;
+  export let text = "";
 </script>
 
 <rover-flair
