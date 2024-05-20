@@ -19,14 +19,15 @@
   import {
     ArrowUp,
     ArrowDown,
-    MessageCircle,
-    Smile,
-    Clock,
+    ChatbubbleOutline,
+    TimeOutline,
+    HappyOutline,
     Megaphone,
-    Ellipsis,
-    Bookmark,
-    Share,
-  } from "lucide-svelte";
+    EllipsisHorizontal,
+    BookmarkOutline,
+    ArrowUndoOutline,
+    ShareOutline,
+  } from "svelte-ionicons";
 
   export let post;
   export let viewType = undefined;
@@ -54,6 +55,16 @@
         style="grid-template-columns: [full-start] 1rem [normal-start] 1fr [normal-end] 1rem [full-end];"
         class="grid transition-colors overflow-clip py-4 border-[var(--gray-5)] bg-[var(--base)] gap-y-4"
       >
+        {#if $settings.appearance.showSubredditAtTop && viewType !== "subreddit" && viewType !== "details"}
+          <div class="col-[normal] -mb-3">
+            <a
+              href={`/r/${post.data.subreddit_}`}
+              class="text-[15px] text-[var(--gray-1)] font-medium fine:hover:underline"
+            >
+              {post.data.subreddit}
+            </a>
+          </div>
+        {/if}
         <div class="col-[normal]">
           <h3
             class:!text-lg={viewType === "details"}
@@ -146,7 +157,7 @@
                     by
                     <Author author={post.data.author} />
                   </span>
-                {:else}
+                {:else if !$settings.appearance.showSubredditAtTop}
                   <a
                     href={`/r/${post.data.subreddit}`}
                     class="font-medium fine:hover:underline"
@@ -168,24 +179,24 @@
                 </span>
               {/if}
             </h4>
-            <div class="flex gap-3 *:flex *:items-center *:gap-1">
+            <div class="flex text-[15px] gap-3 *:flex *:items-center *:gap-1">
               <div>
                 <ArrowUp size="18" />
                 {formatNumber(post.data.score)}
               </div>
               {#if viewType !== "details"}
                 <div>
-                  <MessageCircle size="18" />
+                  <ChatbubbleOutline size="16" />
                   {formatNumber(post.data.num_comments)}
                 </div>
               {:else}
                 <div>
-                  <Smile size="18" />
+                  <HappyOutline size="16" />
                   {post.data.upvote_ratio * 100}%
                 </div>
               {/if}
               <div>
-                <Clock size="18" />
+                <TimeOutline size="16" />
                 {moment.unix(post.data.created).fromNow()}
               </div>
             </div>
@@ -197,7 +208,7 @@
             >
               {#if $settings.appearance.showVotingButtons}
                 <button>
-                  <Ellipsis size="25" />
+                  <EllipsisHorizontal size="25" />
                 </button>
 
                 <button>
@@ -222,10 +233,10 @@
               <ArrowDown size="25" />
             </button>
             <button>
-              <Bookmark size="25" />
+              <BookmarkOutline size="25" />
             </button>
             <button>
-              <MessageCircle size="25" />
+              <ArrowUndoOutline size="25" />
             </button>
             <button
               on:click={() =>
@@ -233,7 +244,7 @@
                   url: `https://reddit.com${post.data.permalink}`,
                 })}
             >
-              <Share size="25" />
+              <ShareOutline size="25" />
             </button>
           </div>
         {/if}

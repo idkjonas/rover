@@ -22,7 +22,10 @@
 
   let lastChildId;
 
+  let isLoading = false;
+
   async function fetchPosts() {
+    isLoading = true;
     try {
       const response = await fetch(
         `${url}?limit=${POST_LIMIT}&after=t3_${lastChildId == undefined ? "0" : lastChildId}`,
@@ -40,6 +43,7 @@
       alert("Error fetching:", error);
       history.back();
     }
+    isLoading = false;
   }
 
   async function loadMore() {
@@ -64,7 +68,9 @@
     {/each}
   </rover-content-view>
 
-  <Spinner />
+  {#if isLoading}
+    <Spinner />
+  {/if}
 {:else}
   <Spinner />
 {/if}

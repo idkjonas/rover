@@ -1,6 +1,12 @@
 <script>
   import { page } from "$app/stores";
-  import { Newspaper, Mail, CircleUserRound, Search, Cog } from "lucide-svelte";
+  import {
+    Planet,
+    FileTray,
+    PersonCircleOutline,
+    Search,
+    Cog,
+  } from "svelte-ionicons";
 </script>
 
 <rover-tab-bar>
@@ -15,29 +21,10 @@
         data-sveltekit-replacestate
         class:active={$page.url.pathname === "/posts"}
       >
-        <Newspaper size="26" />
+        <Planet size="26" />
         <span>Posts</span>
       </a>
-      <!-- href="/inbox" -->
-      <a
-        class="opacity-50 pointer-events-none"
-        title="Coming soon!"
-        data-sveltekit-replacestate
-        class:active={$page.url.pathname === "/inbox"}
-      >
-        <Mail size="26" />
-        <span>Inbox</span>
-      </a>
-      <!-- href="/account" -->
-      <a
-        class="opacity-50 pointer-events-none"
-        title="Coming soon!"
-        data-sveltekit-replacestate
-        class:active={$page.url.pathname === "/account"}
-      >
-        <CircleUserRound size="26" />
-        <span>Account</span>
-      </a>
+
       <a
         href="/search"
         data-sveltekit-replacestate

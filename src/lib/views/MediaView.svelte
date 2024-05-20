@@ -1,7 +1,6 @@
 <script>
   import { Drawer } from "vaul-svelte";
   import Media from "$lib/Media.svelte";
-  import { X } from "lucide-svelte";
   export let post;
 
   let open;

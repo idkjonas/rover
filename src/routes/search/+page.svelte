@@ -1,5 +1,10 @@
 <script>
-  import { Search, Tag, CircleUserRound } from "lucide-svelte";
+  import {
+    Search,
+    SearchOutline,
+    PricetagOutline,
+    PersonOutline,
+  } from "svelte-ionicons";
 
   import NavigationView from "$lib/views/NavigationView.svelte";
 
@@ -11,8 +16,6 @@
 
 <NavigationView>
   <section class="grid h-fit grid-cols-1 gap-4 p-4 bg-[var(--background)]">
-    <h1 class="text-3xl font-medium">Search</h1>
-
     <ListView>
       <ListItem class="flex items-center gap-2">
         <Search size="20" class="text-[var(--gray-1)]" />
@@ -31,18 +34,18 @@
           href="search/results?q={encodeURI(query.replace(' ', '+'))}"
           class="flex items-center gap-2"
         >
-          <Search size="20" class="text-[var(--gray-1)]" />
+          <SearchOutline size="20" class="text-[var(--gray-1)]" />
           Posts with "{query}"
         </ListItem>
       </ListView>
       {#if !query.includes(" ")}
         <ListView>
           <ListItem href="r/{query}" class="flex items-center gap-2">
-            <Tag size="20" class="text-[var(--gray-1)]" />
+            <PricetagOutline size="20" class="text-[var(--gray-1)]" />
             Go to Subreddit "{query}"
           </ListItem>
           <ListItem href="u/{query}" class="flex items-center gap-2">
-            <CircleUserRound size="20" class="text-[var(--gray-1)]" />
+            <PersonOutline size="20" class="text-[var(--gray-1)]" />
             Go to User "{query}"
           </ListItem>
         </ListView>

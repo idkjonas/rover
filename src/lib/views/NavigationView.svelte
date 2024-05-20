@@ -3,7 +3,7 @@
   import { hasScrolledToBottom } from "$lib/stores";
   import DetailsView from "$lib/views/DetailsView.svelte";
   import { pushState } from "$app/navigation";
-  import { X } from "lucide-svelte";
+  import { Close } from "svelte-ionicons";
 
   let atBottom = false;
 
@@ -42,7 +42,7 @@
         }}
         class="fine:hover:bg-[var(--gray-6)] p-2 rounded-full"
       >
-        <X class="text-[var(--blue)]" />
+        <Close class="text-[var(--blue)]" />
       </button>
     </div>
 

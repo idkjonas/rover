@@ -1,5 +1,5 @@
 <script>
-  import { Compass, ChevronRight } from "lucide-svelte";
+  import { Compass, ChevronForward } from "svelte-ionicons";
   export let url;
   export let preview;
   export let viewType;
@@ -32,7 +32,7 @@
       <div class="truncate">
         {url}
       </div>
-      <ChevronRight />
+      <ChevronForward />
     </div>
   {:else}
     <div class="grid grid-cols-[min-content,1fr]">
@@ -43,14 +43,21 @@
           alt="thumbnail"
           on:error={() => (dontRenderThumbnail = true)}
         />
+      {:else}
+        <div
+          class="border-r flex items-center px-3 mr-3 border-[var(--gray-4)] text-[var(--gray-1)]"
+        >
+          <Compass />
+        </div>
       {/if}
+
       <div
         class="grid grid-cols-[1fr,min-content] py-4 pr-3 text-[var(--gray-1)]"
       >
         <div class="truncate">
           {url}
         </div>
-        <ChevronRight />
+        <ChevronForward />
       </div>
     </div>
   {/if}

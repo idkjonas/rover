@@ -2,7 +2,7 @@
   import NavigationView from "$lib/views/NavigationView.svelte";
 
   import ContentView from "$lib/views/ContentView.svelte";
-  import { Search } from "lucide-svelte";
+  import { Search } from "svelte-ionicons";
 
   import { page } from "$app/stores";
 

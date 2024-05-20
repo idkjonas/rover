@@ -1,5 +1,5 @@
 <script>
-  import { VolumeX, Volume2 } from "lucide-svelte";
+  import { VolumeHigh, VolumeMute } from "svelte-ionicons";
   import viewport from "./useViewportAction";
   import { scale } from "svelte/transition";
   export let post;
@@ -32,13 +32,9 @@
       class="absolute z-[999] text-white flex top-auto items-center justify-center p-2 rounded-md size-10 bg-black/80 bottom-2 right-2"
     >
       {#if isMuted}
-        <div transition:scale class="absolute">
-          <VolumeX />
-        </div>
+        <VolumeMute />
       {:else}
-        <div transition:scale class="absolute">
-          <Volume2 />
-        </div>
+        <VolumeHigh />
       {/if}
     </button>
   {/if}

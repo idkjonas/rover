@@ -1,5 +1,10 @@
 <script>
-  import { ArrowUp, Lock, Ellipsis, ChevronDown } from "lucide-svelte";
+  import {
+    ArrowUp,
+    LockClosed,
+    EllipsisHorizontal,
+    ChevronDown,
+  } from "svelte-ionicons";
   import { formatNumber } from "$lib/utils";
   import Flair from "$lib/Flair.svelte";
   import Author from "$lib/Author.svelte";
@@ -32,7 +37,7 @@
           {/if}
         </div>
         {#if comment.data.locked}
-          <Lock size="18" class="text-[var(--green)]" />
+          <LockClosed size="18" class="text-[var(--green)]" />
         {/if}
       </div>
       {#if comment.data.author_flair_text}
@@ -44,7 +49,7 @@
         {#if !collapsed}
           <div class="flex items-center gap-2">
             <button on:click|stopPropagation={() => console.log(comment)}>
-              <Ellipsis size="18" />
+              <EllipsisHorizontal size="18" />
             </button>
             {moment.unix(comment.data.created).fromNow()}
           </div>

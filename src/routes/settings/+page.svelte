@@ -4,7 +4,7 @@
   import ListItem from "$lib/list/ListItem.svelte";
   import { settings } from "$lib/settings.js";
   import { get } from "svelte/store";
-  import { ChevronRight, Coffee } from "lucide-svelte";
+  import { ChevronForward, Cafe } from "svelte-ionicons";
 
   let currentSettings = get(settings);
 
@@ -66,25 +66,23 @@
 
 <NavigationView>
   <section class="grid p-4 grid-cols gap-y-4">
-    <h1 class="text-3xl font-medium">Settings</h1>
-
     <ListView>
       <ListItem
         class="justify-between"
         href="https://buymeacoffee.com/jnsdotgg"
       >
         <div class="flex items-center gap-2">
-          <Coffee></Coffee>
+          <Cafe />
           Buy Me a Coffee
         </div>
-        <ChevronRight class="text-[var(--gray-2)]" />
+        <ChevronForward class="text-[var(--gray-2)]" />
       </ListItem>
       <ListItem
         class="justify-between"
         href="https://github.com/jnsdotgg/rover"
       >
         View on GitHub
-        <ChevronRight class="text-[var(--gray-2)]" />
+        <ChevronForward class="text-[var(--gray-2)]" />
       </ListItem>
     </ListView>
     {#each Object.entries(groupedSettings) as [group, settings]}
