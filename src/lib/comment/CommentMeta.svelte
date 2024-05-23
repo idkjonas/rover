@@ -48,7 +48,7 @@
       <div class="flex items-center self-end justify-end grow">
         {#if !collapsed}
           <div class="flex items-center gap-2">
-            <button on:click|stopPropagation={() => console.log(comment)}>
+            <button on:mousedown|stopPropagation={() => console.log(comment)}>
               <EllipsisHorizontal size="18" />
             </button>
             {moment.unix(comment.data.created).fromNow()}
