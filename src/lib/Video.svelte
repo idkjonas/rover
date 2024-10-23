@@ -25,7 +25,7 @@
 >
   {#if hasAudio}
     <button
-      on:mousedown|stopPropagation={() => {
+      on:click|stopPropagation={() => {
         isMuted = !isMuted;
         currentTime = video.currentTime;
       }}

@@ -43,7 +43,7 @@
       <svelte:element
         this={viewType !== "details" ? "a" : "div"}
         id={post.data.id}
-        on:mousedown={() =>
+        on:click={() =>
           viewType !== "details" &&
           pushState("", {
             showSubView: true,
@@ -88,7 +88,7 @@
 
         {#if post.data.post_hint === "image"}
           <button
-            on:mousedown|stopPropagation={() => selectedMedia.set(post)}
+            on:click|stopPropagation={() => selectedMedia.set(post)}
             class="col-[full] md:col-[normal] md:rounded-xl bg-[var(--gray-6)]"
           >
             <Media
@@ -100,7 +100,7 @@
           </button>
         {:else if post.data.is_video}
           <button
-            on:mousedown|stopPropagation={() => selectedMedia.set(post)}
+            on:click|stopPropagation={() => selectedMedia.set(post)}
             class="col-[full] {viewType === 'details'
               ? 'max-h-[20rem]'
               : 'max-h-[38rem]'}"
@@ -109,7 +109,7 @@
           </button>
         {:else if post.data.is_gallery}
           <button
-            on:mousedown|stopPropagation={() => selectedMedia.set(post)}
+            on:click|stopPropagation={() => selectedMedia.set(post)}
             class="col-[full] md:col-[normal] md:rounded-xl overflow-clip gap-1 bg-[var(--gray-6)] grid grid-cols-[50%,50%] max-h-[24rem]"
           >
             <Media
@@ -239,7 +239,7 @@
               <ArrowUndoOutline size="25" />
             </button>
             <button
-              on:mousedown={() =>
+              on:click={() =>
                 navigator.share({
                   url: `https://reddit.com${post.data.permalink}`,
                 })}

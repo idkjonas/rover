@@ -35,7 +35,7 @@
       class="w-full items-center flex p-2 -mb-4 bg-[var(--base)] sticky top-0 z-40"
     >
       <button
-        on:mousedown={() => {
+        on:click={() => {
           pushState("", {
             showSubView: false,
           });

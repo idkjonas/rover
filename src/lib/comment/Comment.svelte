@@ -30,7 +30,7 @@
         href={comment.data.permalink}
         style="padding-inline-start: {comment.data.depth * 0.75}rem"
         class="fine:hover:bg-[var(--gray-7)] bg-[var(--base)] w-full block relative text-start"
-        on:mousedown={() =>
+        on:click={() =>
           viewType !== "profile" ? (isCollapsed = !isCollapsed) : ""}
       >
         <div
